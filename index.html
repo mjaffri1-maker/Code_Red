@@ -66,6 +66,9 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
         }
+        .narrative-text p {
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
@@ -92,7 +95,7 @@
             </div>
 
             <div class="p-6 md:p-10 flex-grow flex flex-col">
-                <div id="story-container" class="space-y-4 text-slate-300 leading-relaxed fade-in">
+                <div id="story-container" class="narrative-text text-slate-300 leading-relaxed fade-in">
                     </div>
 
                 <div class="flex-grow min-h-[2rem]"></div>
@@ -116,25 +119,25 @@
 
         const gameData = {
             prologue: {
-                title: "Prologue: Patient Zero",
+                title: "Prologue: The Patient Zero Event",
                 imageUrl: getTerminalImage("LOCATION: BANJARAN TITIWANGSA - PATIENT ZERO"),
                 text: `
                     <p>The chainsaw sputtered and died, the sudden silence swallowed instantly by the deafening hum of cicadas. Deep in Sector 4 of the Banjaran Titiwangsa logging concession, Azman wiped a mix of sawdust and sweat from his eyes. Before him lay the shattered trunk of a massive, ancient <em>cengal</em> tree, hollowed out by centuries of rot.</p>
-                    <p>As the trunk had split, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was forty-eight hours ago.</p>
-                    <p>Now, it was 2:00 AM in the workers' barracks, and Azman felt like he was drowning in his own bed.</p>
-                    <p>His chest heaved violently, each breath sounding like wet paper tearing. The camp medic, a young guy named Harris, was pressing a stethoscope to Azman's ribs, his face pale in the harsh fluorescent light.</p>
-                    <p>"I can't... I can't catch it," Azman wheezed, his fingers clawing at the collar of his shirt. His vision was blurring, the edges of the room warping into terrifying, hallucinatory geometry—the neurological symptoms taking hold.</p>
-                    <p>"His temperature is forty-one degrees," Harris muttered into his radio, his voice shaking. "Base, this is Camp Echo. I need a medivac chopper now. It's not malaria. It's not dengue."</p>
+                    <p>As the trunk had split open, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was exactly forty-eight hours ago.</p>
+                    <p>Now, it was 2:00 AM in the isolated workers' barracks, and Azman felt like he was drowning in his own bed.</p>
+                    <p>His chest heaved violently, each breath sounding like wet paper tearing. The camp medic, a young guy named Harris, was pressing a stethoscope to Azman's ribs, his face pale in the harsh fluorescent light of the clinic.</p>
+                    <p>"I can't... I can't catch it," Azman wheezed, his fingers clawing at the collar of his shirt. His vision was blurring, the edges of the room warping into terrifying, hallucinatory geometry—the neurological symptoms were already taking hold.</p>
+                    <p>"His temperature is forty-one degrees," Harris muttered into his radio, his voice shaking. "Base, this is Camp Echo. I need a medivac chopper now. It's not malaria. It's not dengue. It's... something else."</p>
                     <p>Azman convulsed, a violent spasm arching his back. He rolled onto his side and coughed. It wasn't mucus that splattered onto the white linoleum floor; it was a dark, frothy, viscous fluid. His lung tissue was liquefying.</p>
                     <p>As the distant, rhythmic thumping of the medivac helicopter finally echoed over the jungle canopy, Azman's eyes rolled back, and the world went dark. The Banjaran Agent had found its first host, and it was already mutating.</p>
                     <hr class="border-slate-700 my-6">
-                    <p class="text-sky-400 font-semibold"><i class="fa-solid fa-microscope mr-2"></i> You are a Senior Genomic Epidemiologist at MKAK in Sungai Buloh. The Ministry of Health has given you 48 hours to decode this pathogen before the outbreak becomes a pandemic.</p>
+                    <p class="text-sky-400 font-semibold italic">You are the Senior Genomic Epidemiologist at MKAK in Sungai Buloh. You've spent your career preparing for the 'Big One'. At 4:00 AM, your secure phone rings. The Ministry of Health has enacted Code Red. You have 48 hours to decode this pathogen before the outbreak breaches the borders of Selangor and becomes a global pandemic.</p>
                 `,
                 progress: 0,
                 choices: [
                     { 
                         text: "Acknowledge Briefing & Enter Laboratory", 
-                        narrative: "You set down your coffee. KKM is depending on you. It's time to get to work.",
+                        narrative: "You set down your lukewarm coffee, tie back your hair, and swipe your Level 4 clearance badge. Millions of lives are depending on your understanding of molecular biology. It's time to get to work.",
                         type: "success", 
                         nextStage: "stage1" 
                     }
@@ -144,36 +147,39 @@
                 title: "Stage 1: The Chemical Signature",
                 imageUrl: getTerminalImage("ANALYSIS: MACROMOLECULE EXTRACTION"),
                 text: `
-                    <p>Patient Zero's bronchoalveolar lavage fluid arrives via helicopter at your lab in Sungai Buloh. Under the electron microscope, the Banjaran Agent doesn't look like a standard virus or bacterium; it appears to be a highly complex, airborne, single-celled eukaryotic parasite.</p>
-                    <p>Before you can sequence its genome, you must extract its pure genetic material. Your frantic junior biochemist uses a harsh lysis buffer and isolates three distinct cellular fractions, but accidentally drops the labels in her panic.</p>
+                    <p>The thrum of the Level 4 Bio-Safety Lab's negative pressure system is deafening. You are sealed inside a heavy hazmat suit. Patient Zero's bronchoalveolar lavage fluid arrived twenty minutes ago via military escort. You placed a slide under the electron microscope.</p>
+                    <p>You expected a coronavirus or a novel influenza strain. Instead, staring back at you from the monitor is a highly complex, airborne, single-celled eukaryotic parasite. It is massive, armored, and entirely undocumented in any WHO database.</p>
+                    <p>Before you can sequence its genome to understand what you're fighting, you must extract its pure genetic material. Farah, your frantic junior biochemist, is pale and shaking. She applied a harsh lysis buffer to the sample to crack the parasite's thick cellular wall, but in her panic, she dropped the tubes. The labels peeled off.</p>
+                    <p>"Doctor, I'm so sorry!" Farah cries over the intercom. She holds up three distinct cellular fractions she isolated from the pathogen's nucleus.</p>
                     <ul class="list-disc pl-6 space-y-2 text-slate-400 mt-4 mb-4">
                         <li><strong class="text-slate-200">Fraction Alpha:</strong> Highly complex, tightly folded 3D structures rich in sulfur, held together by disulfide bridges.</li>
                         <li><strong class="text-slate-200">Fraction Beta:</strong> A viscous, acidic substance containing zero sulfur, but exceptionally high in phosphorus. Chemical hydrolysis reveals a 5-carbon sugar, phosphate groups, and nitrogenous rings.</li>
-                        <li><strong class="text-slate-200">Fraction Gamma:</strong> A highly hydrophobic, greasy substance composed of long hydrocarbon chains that forms a layer on top of the water.</li>
+                        <li><strong class="text-slate-200">Fraction Gamma:</strong> A highly hydrophobic, greasy substance composed of long hydrocarbon chains that forms a film on top of the buffer.</li>
                     </ul>
-                    <p class="font-mono text-sky-400">Which fraction do you load into the sequencer to map the pathogen's blueprint?</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">The sequencer is primed and waiting. Which fraction contains the heritable blueprint of the pathogen?</p>
                 `,
                 progress: 10,
                 choices: [
                     {
                         text: "Extract Fraction Alpha",
-                        narrative: "The sheer physical complexity of these 3D folded structures must be the key. You instruct the tech to load the sulfur-rich fraction.",
+                        narrative: "The sheer physical complexity of these 3D folded structures must be the key to the organism's lethality. You instruct Farah to load the sulfur-rich fraction.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "You loaded structural glycoproteins. They cannot replicate, and they don't contain the genetic code. You failed to recall the pioneering work of <strong>Friedrich Miescher</strong>, who discovered 'nuclein' precisely because it contained phosphorus but lacked sulfur. The pathogen spreads to Penang while you waste days trying to read a protein.",
+                        outcomeText: "You loaded structural glycoproteins. They cannot replicate, and they don't contain the genetic code. In the heat of the moment, you failed to recall the pioneering work of <strong>Friedrich Miescher</strong>, who discovered 'nuclein' (DNA) precisely because it contained phosphorus but lacked sulfur. The pathogen spreads to Penang while you waste three days trying to sequence a dead protein.",
                         type: "gameover", nextStage: "stage1"
                     },
                     {
                         text: "Extract Fraction Beta",
-                        narrative: "You remember the basics: heredity lies in the phosphorus, not the sulfur. You isolate the acidic, pentose-rich substance.",
+                        narrative: "You take a deep breath to steady your nerves and remember your foundational biochemistry. Heredity lies in the phosphorus, not the sulfur.",
                         outcomeTitle: "Extraction Successful",
-                        outcomeText: "You correctly identified the nucleic acids. You also recognize the breakdown components as the 'nucleotides' characterized by <strong>Phoebus Levene</strong>. You have isolated the pathogen's DNA.",
+                        outcomeText: "You correctly identified the nucleic acids. You recognized the breakdown components as the 'nucleotides' characterized by <strong>Phoebus Levene</strong>. The acidic, phosphorus-rich fraction is loaded into the sequencer. You finally have the parasite's DNA.",
                         type: "success", nextStage: "stage2"
                     },
                     {
                         text: "Extract Fraction Gamma",
-                        narrative: "The thick, greasy layer seems highly unusual for a respiratory sample. You decide to investigate the lipids first.",
+                        narrative: "The thick, greasy layer seems highly unusual for a respiratory sample. You decide to investigate the pathogen's outer armor first.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "You isolated the pathogen's lipid bilayer (cell membrane). You put it in the sequencer, and nothing happens. The machine outputs an error. You've wasted 12 hours while the infection spreads to Ipoh.",
+                        outcomeText: "You isolated the pathogen's lipid bilayer (cell membrane). You put it in the sequencer, and nothing happens. The machine spits out a format error. You've wasted 12 precious hours running the wrong biomolecule while the infection quietly spreads to Ipoh.",
                         type: "neutral", nextStage: "stage1"
                     }
                 ]
@@ -182,30 +188,35 @@
                 title: "Stage 2: The Structural Blueprint",
                 imageUrl: getTerminalImage("TARGET: SYNTHESIZING DNA PRIMER"),
                 text: `
-                    <p>To develop a rapid diagnostic PCR test for screening at KLIA, you need to synthesize a primer that binds perfectly to a unique, single-stranded segment of the Banjaran Agent's genome: <code class="bg-slate-700 px-2 py-1 rounded text-sky-300">5'-A-A-T-G-C-C-A-T-3'</code>.</p>
-                    <p class="font-mono text-sky-400 mt-6">How do you design the diagnostic complementary primer?</p>
+                    <p>The sequencer hums, outputting terabytes of data. You've stripped off your hazmat suit and are now sitting in the cold server room, eyes burning from staring at the dual monitors. The pathogen's genome is massive, but you've found a vulnerability—a unique, highly conserved single-stranded region.</p>
+                    <p>The intercom buzzes. It's the Director-General of Health, Datuk Dr. Radzi. "Doctor, KLIA and Johor Bahru checkpoints are in chaos. We have passengers collapsing in the terminals. I need a rapid diagnostic PCR test shipped out to the borders <em>yesterday</em>. Do you have a primer yet?"</p>
+                    <p>"Working on it now, Datuk," you reply, rubbing your temples.</p>
+                    <p>To build the PCR test, you must synthesize a custom DNA primer that will bind perfectly to this specific target sequence in the pathogen's genome: <code class="bg-slate-700 px-2 py-1 rounded text-sky-300 font-bold">5'-A-A-T-G-C-C-A-T-3'</code>.</p>
+                    <p>Farah is standing by the DNA synthesizer machine. "Doctor, we're out of time. Should I just program the machine to mix equal parts A, T, C, and G? It should create a repeating block that catches the sequence, right?"</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">How do you instruct Farah to design the diagnostic complementary primer?</p>
                 `,
                 progress: 25,
                 choices: [
                     {
                         text: "Synthesize a generic repeating probe",
-                        narrative: "Time is running out. You hope a simple, repeating tetranucleotide block will cast a wide enough net to catch the pathogen's sequence.",
+                        narrative: "Farah might be right. Desperate times call for quick, broad strokes. You tell her to assume a generic 25% distribution of all bases.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "You fell for Levene's disproven 'Tetranucleotide Hypothesis.' Your primer is useless and binds to nothing. The rapid test fails nationwide, resulting in thousands of false negatives.",
+                        outcomeText: "You fell for Levene's disproven 'Tetranucleotide Hypothesis.' By assuming DNA is just a dumb, repeating block of equal bases, your primer lacks all specificity. It binds to random human DNA and environmental bacteria. The rapid test fails nationwide, resulting in thousands of false negatives crossing the borders.",
                         type: "gameover", nextStage: "stage2"
                     },
                     {
-                        text: "Design a complementary anti-parallel strand",
-                        narrative: "You recall Chargaff's strict rules. You carefully map out hydrogen bonds to create a perfect mirror image of the target sequence.",
+                        text: "Design an exact complementary, anti-parallel strand",
+                        narrative: "You wave Farah off. 'No shortcuts,' you tell her. You grab a whiteboard marker and map out the specific hydrogen bonds required to create a perfect mirror image.",
                         outcomeTitle: "Synthesis Successful",
-                        outcomeText: "You apply <strong>Erwin Chargaff's rules</strong> (A=T, C=G) and the anti-parallel double-helix architecture solved by <strong>Watson and Crick</strong>. You synthesize the exact complementary primer (<code class='bg-slate-800 text-sky-300 px-1'>3'-T-T-A-C-G-G-T-A-5'</code>). The rapid tests are deployed!",
+                        outcomeText: "You applied <strong>Erwin Chargaff's rules</strong> (A=T, C=G) and the anti-parallel double-helix architecture solved by <strong>Watson and Crick</strong>. You synthesize the exact complementary primer (<code class='bg-slate-800 text-sky-300 px-1'>3'-T-T-A-C-G-G-T-A-5'</code>). The rapid tests are successfully deployed to the airports!",
                         type: "success", nextStage: "stage3"
                     },
                     {
                         text: "Reverse-engineer from extracted proteins",
-                        narrative: "DNA is tricky to amplify right now. You decide to sequence the amino acids first and work backwards to find the genetic code.",
+                        narrative: "DNA synthesis is taking too long to model. You decide to sequence the amino acids of the virus first and work backward to deduce the genetic code.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "Because the genetic code is degenerate (multiple codons code for the same amino acid), you cannot accurately reverse-engineer the exact DNA sequence. Your synthetic primers are mismatched. The PCR yields no bands. Time wasted.",
+                        outcomeText: "Because the genetic code is degenerate (multiple codons code for the same amino acid like Leucine or Serine), you cannot accurately reverse-engineer the exact DNA sequence. Your synthetic primers are mismatched guesses. The PCR yields no bands. You lost a day of testing.",
                         type: "neutral", nextStage: "stage2"
                     }
                 ]
@@ -214,31 +225,34 @@
                 title: "Stage 3: The Lethal Mechanism",
                 imageUrl: getTerminalImage("PATHWAY: CENTRAL DOGMA INTERCEPTION"),
                 text: `
-                    <p>You discover <em>how</em> the pathogen kills: its DNA contains a gene, <em>Toxin-X</em>, which produces a neurotoxin protein that liquefies human lung tissue.</p>
-                    <p>To save the infected patients in the ICU, you want to develop an RNA interference (RNAi) drug. You must target the exact flow of genetic information inside the human cells hijacked by the pathogen.</p>
-                    <p class="font-mono text-sky-400 mt-6">How does the pathogen's genetic information become the lethal neurotoxin?</p>
+                    <p>The PCR tests are working. The nation's borders are secure, and you finally have a moment to breathe. You take a sip of cold coffee when the red phone on your desk rings violently. It's the Head of ICU at Hospital Sungai Buloh.</p>
+                    <p>"Doctor, the isolation ward is crashing. All of them," the ICU head shouts over the sound of blaring alarms. "The pathogen isn't just reproducing; it's actively melting their lung tissue. Mechanical ventilators are useless if there are no lungs left to ventilate. We need a therapeutic drug immediately, or we lose fifty people by midnight."</p>
+                    <p>You slam your coffee down and pull up the pathogen's complete genomic map. You find it: a gene you dub <em>Toxin-X</em>. This gene codes for the vicious neurotoxin protein responsible for liquefying human tissue.</p>
+                    <p>You need to develop a targeted RNA interference (RNAi) drug to stop the parasite from producing this toxin while it lives inside the host's cells. To do this, your drug must intercept the pathogen's biological assembly line at the exact right moment.</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">You look at the biological blueprints. How does the pathogen's genetic information transform into the lethal neurotoxin protein?</p>
                 `,
                 progress: 40,
                 choices: [
                     {
                         text: "Target the direct DNA-to-Ribosome pathway",
-                        narrative: "You hypothesize the parasite acts fast by sending its DNA straight to the host's ribosomes. You design a drug to block this direct transfer.",
+                        narrative: "You hypothesize the parasite acts incredibly fast by ejecting its DNA straight out of the nucleus into the host's cytoplasm. You design a drug to block this direct DNA transfer.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "DNA does not leave the nucleus to be read by ribosomes. You have fundamentally misunderstood the <strong>Central Dogma of Molecular Biology</strong>. Your drug fails. The ICU mortality rate spikes.",
+                        outcomeText: "DNA does not leave the nucleus to be directly read by ribosomes. You have fundamentally misunderstood the <strong>Central Dogma of Molecular Biology</strong>. Your RNAi drug targets a pathway that doesn't exist. The drug fails. By midnight, the ICU goes quiet for the worst possible reason.",
                         type: "gameover", nextStage: "stage3"
                     },
                     {
                         text: "Administer high-dose Penicillin",
-                        narrative: "When in doubt, hit it with a broad-spectrum antibiotic. You order the ICU to max out the patients' penicillin drip to break its cell wall.",
+                        narrative: "Molecular targeting is too slow. You order the ICU to max out the patients' broad-spectrum penicillin drips to violently break the pathogen's cell wall.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "Penicillin targets bacterial peptidoglycan cell walls. The Banjaran Agent is a eukaryote; it doesn't have one. The drug does absolutely nothing. The patients remain critical.",
+                        outcomeText: "Penicillin targets bacterial peptidoglycan cell walls. The Banjaran Agent is a complex eukaryote; it doesn't possess one. The drug does absolutely nothing but damage the patients' kidneys. The ICU remains in critical condition while you pivot back to the drawing board.",
                         type: "neutral", nextStage: "stage3"
                     },
                     {
                         text: "Target the intermediate mRNA transcript",
-                        narrative: "The Central Dogma holds true, even here. You design an RNAi drug to hunt down the messenger RNA before it ever reaches the translation machinery.",
+                        narrative: "The Central Dogma holds true, even for this nightmare organism. You design an RNAi drug to hunt down the messenger RNA in the cytoplasm before it ever reaches the translation machinery.",
                         outcomeTitle: "Mechanism Intercepted",
-                        outcomeText: "You accurately targeted the Central Dogma (DNA &rarr; RNA &rarr; Protein). Your RNAi therapeutic intercepts and destroys the intermediate mRNA before it reaches the ribosome. The patients stabilize!",
+                        outcomeText: "You accurately targeted the Central Dogma (DNA &rarr; RNA &rarr; Protein). Your RNAi therapeutic successfully intercepts and degrades the intermediate mRNA transcripts before the ribosomes can read them. Toxin production halts. The patients stabilize!",
                         type: "success", nextStage: "stage4"
                     }
                 ]
@@ -247,31 +261,34 @@
                 title: "Stage 4: The Evasion",
                 imageUrl: getTerminalImage("ALERT: TRANSPOSABLE ELEMENT DETECTED"),
                 text: `
-                    <p>A week later, disaster strikes. KKM reports your diagnostic PCR test is failing. Patients with obvious, severe symptoms are testing negative.</p>
-                    <p>You sequence the <em>Toxin-X</em> target gene again. The gene is still there, but it is abruptly 5,000 base pairs longer! The sequence reveals a massive chunk of repetitive DNA, flanked by inverted repeats, inserted directly into the middle of your primer binding site.</p>
-                    <p class="font-mono text-sky-400 mt-6">What caused this sudden genetic alteration?</p>
+                    <p>A week has passed. You are sleeping on a stiff cot in the MKAK breakroom when Farah violently shakes you awake.</p>
+                    <p>"Doctor! Wake up! The DG is on the line. Our KLIA PCR tests are failing. We have patients showing up at clinics coughing up blood, but our tests are reading negative. The pathogen is slipping through!"</p>
+                    <p>You sprint to the lab, your heart hammering against your ribs. The pathogen is adapting to the evolutionary pressure of your drugs. You take fresh sputum samples from the newly infected patients and run them through the sequencer, focusing specifically on your original <em>Toxin-X</em> target gene.</p>
+                    <p>When the data loads, you stare at the screen in disbelief. The <em>Toxin-X</em> gene is still there, but it is abruptly 5,000 base pairs longer. A massive, foreign chunk of highly repetitive DNA, flanked by inverted repeats, has inserted itself directly into the middle of your primer binding site. Your PCR test was looking for a sequence that has been physically blown apart.</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">What biological mechanism caused this sudden, massive genetic insertion overnight?</p>
                 `,
                 progress: 55,
                 choices: [
                     {
-                        text: "Investigate ribosomal malfunction",
-                        narrative: "The translation machinery must have gone rogue, stitching thousands of unwanted amino acids into the chain. You focus your diagnostic efforts on the ribosomes.",
+                        text: "Investigate a ribosomal malfunction",
+                        narrative: "The host's translation machinery must have gone rogue, blindly stitching thousands of unwanted amino acids into the chain. You focus your diagnostic efforts on the ribosomes.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "Ribosomes translate proteins; they do not alter genomic DNA. You misdiagnose the problem and the pathogen spreads unchecked.",
+                        outcomeText: "Ribosomes translate proteins; they do not alter the sequence of genomic DNA. Furthermore, PCR tests amplify DNA, not proteins. Your lack of genomic understanding blinds you to the real threat. The mutated pathogen spreads unchecked through the population.",
                         type: "gameover", nextStage: "stage4"
                     },
                     {
                         text: "Investigate a transposable element",
-                        narrative: "A sudden 5,000 base pair insertion isn't random error. You suspect a 'jumping gene' has deliberately moved to shield the pathogen's code.",
+                        narrative: "A sudden 5,000 base pair insertion with inverted repeats isn't a random replication error. You suspect a 'jumping gene' has deliberately moved under stress to shield the pathogen's code.",
                         outcomeTitle: "Evasion Detected",
-                        outcomeText: "You recognize the phenomenon discovered by <strong>Barbara McClintock</strong>. A 'jumping gene' relocated, physically breaking your target sequence. You design new primers to restore testing.",
+                        outcomeText: "You immediately recognize the phenomenon discovered by <strong>Barbara McClintock</strong>. The environmental stress of your drugs caused a transposon to excise itself and relocate, physically breaking your target sequence to evade detection. You quickly design new primers flanking the transposon to restore testing capability.",
                         type: "success", nextStage: "stage5"
                     },
                     {
-                        text: "Recalibrate the thermal cycler",
-                        narrative: "Machines break under pressure. You assume it's just a hardware glitch and drag the samples to a different PCR machine to run them again.",
+                        text: "Recalibrate the thermal cycler hardware",
+                        narrative: "Machines break under constant pressure. You assume the sudden insertion is just a hardware glitch adding noise to the sequence, and move the samples to a different machine.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "The thermal cycler wasn't the issue. You get the exact same false-negative result four hours later. A complete waste of an afternoon during a crisis.",
+                        outcomeText: "The thermal cycler wasn't the issue. You get the exact same false-negative result four hours later. A complete waste of an afternoon during a national crisis. You have to look deeper into the biology.",
                         type: "neutral", nextStage: "stage4"
                     }
                 ]
@@ -280,31 +297,34 @@
                 title: "Stage 5: The Mutation",
                 imageUrl: getTerminalImage("WARNING: FRAMESHIFT MUTATION LOGGED"),
                 text: `
-                    <p>The pathogen continues to adapt. In a cluster of patients in Selangor, the transposon spontaneously jumps <em>out</em> of the <em>Toxin-X</em> gene.</p>
-                    <p>However, it left behind a tiny footprint: an insertion of exactly <strong>one base pair</strong> (an extra Cytosine) in the middle of the neurotoxin's coding region. Suddenly, this variant produces a completely deformed, hyper-aggressive version of the neurotoxin.</p>
-                    <p class="font-mono text-sky-400 mt-6">Why did a single-base insertion cause a catastrophic change to the entire protein?</p>
+                    <p>By identifying the transposon, you restored the testing grid. But the parasite is relentless. A new cluster of infections has erupted in Shah Alam—dangerously close to the capital.</p>
+                    <p>Worse, the ICU doctors report that the Shah Alam variant is twice as lethal. The neurotoxin isn't just liquefying lung tissue anymore; it's attacking the central nervous system, causing seizures and paralysis within hours.</p>
+                    <p>You sequence the Shah Alam variant. The transposon has spontaneously jumped <em>out</em> of the <em>Toxin-X</em> gene. However, when it excised itself, it didn't leave cleanly. It left behind a tiny, microscopic footprint: an insertion of exactly <strong>one base pair</strong> (an extra Cytosine) right in the middle of the neurotoxin's coding region.</p>
+                    <p>Farah looks over your shoulder at the monitor. "Doctor... it's just one extra letter out of tens of thousands. How is that causing the protein to become a completely different, hyper-lethal neurotoxin?"</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">How do you explain to your team why a single-base insertion caused a catastrophic structural change to the entire protein?</p>
                 `,
                 progress: 65,
                 choices: [
                     {
                         text: "Diagnose a silent mutation",
-                        narrative: "It's just one extra base. You assume it's a silent mutation that's merely causing the ribosomes to work overtime, speeding up toxin production.",
+                        narrative: "It's just one extra base. You explain to Farah that it's a silent mutation that doesn't change the shape, but merely acts as an accelerator, causing the ribosomes to work overtime.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "Silent mutations do not change the amino acid sequence or ribosome speed. You mischaracterized the variant, and the wrong countermeasures are deployed.",
+                        outcomeText: "Silent mutations, by definition, do not change the amino acid sequence or the resulting protein structure, and they certainly don't change ribosome speed. You mischaracterized the variant. You deploy antibodies designed for the old toxin, which bounce harmlessly off the new one.",
                         type: "gameover", nextStage: "stage5"
                     },
                     {
                         text: "Ignore it as a software artifact",
-                        narrative: "Sequencers have noise all the time. One extra 'C' is likely a glitch. You press forward with the original antibody treatment plan.",
+                        narrative: "Sequencers generate noise all the time. One extra 'C' is likely a digital glitch. You tell the team to ignore it and press forward with the original treatment plan.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "By ignoring the data, you give patients an antibody that binds to the old protein shape. The new, mutated protein ignores the drug completely. The patients don't improve.",
+                        outcomeText: "By ignoring the data, you give patients an antibody that binds perfectly to the old protein shape. The new, mutated protein ignores the drug completely. The patients' seizures worsen. You must look at the data again.",
                         type: "neutral", nextStage: "stage5"
                     },
                     {
                         text: "Diagnose a frameshift mutation",
-                        narrative: "A single nucleotide out of place throws the entire reading frame into chaos. You realize this tiny insertion has built an entirely new monster.",
+                        narrative: "You point to the screen. 'The ribosome reads code in triplets,' you explain. 'A single nucleotide out of place throws the entire reading frame into chaos.'",
                         outcomeTitle: "Mutation Analyzed",
-                        outcomeText: "You accurately diagnosed the frameshift mutation. Because the reading frame was thrown out of phase, it translated into a novel protein. You rapidly synthesize a new monoclonal antibody.",
+                        outcomeText: "You accurately diagnosed the frameshift mutation. Because the reading frame was thrown entirely out of phase by one nucleotide, every single downstream codon changed, translating into a completely novel, twisted protein structure. Armed with this knowledge, you rapidly synthesize a new monoclonal antibody specific to the new shape.",
                         type: "success", nextStage: "stage6"
                     }
                 ]
@@ -313,30 +333,34 @@
                 title: "Stage 6: The Silent Threat",
                 imageUrl: getTerminalImage("STATUS: EPIGENETIC SILENCING ACTIVE"),
                 text: `
-                    <p>The new antibody works perfectly. But one month later, three of the original loggers relapse. You swab them. The pathogen's DNA is fully present in their lungs, but the organism is completely dormant. It isn't producing the <em>Toxin-X</em> mRNA at all, evading the immune system, only to randomly reactivate later. The DNA sequence itself has not mutated.</p>
-                    <p class="font-mono text-sky-400 mt-6">How is the pathogen "turning off" its lethal gene without changing the DNA sequence?</p>
+                    <p>Your frameshift-specific antibody works flawlessly. The Shah Alam cluster is cured, the patients are discharged, and you finally go home to sleep in your own bed for the first time in three weeks.</p>
+                    <p>A month later, the nightmare returns. Three of the original loggers from the Banjaran camp are rushed back into the emergency room, exhibiting the exact same terrifying symptoms. A relapse.</p>
+                    <p>You swab them immediately. The sequencer confirms the pathogen's DNA is fully present in their lungs. However, when you run an RNA assay, the organism is completely dormant. It isn't transcribing the <em>Toxin-X</em> mRNA at all. It had evaded the host's immune system by "playing dead," only to randomly reactivate when the patient's guard was down. The underlying DNA sequence itself has not mutated.</p>
+                    <p>You stare at the data. The sequence is identical, but the expression is zero. It's a ghost in the machine.</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">How is the pathogen "turning off" its lethal gene without actually changing its DNA sequence?</p>
                 `,
                 progress: 75,
                 choices: [
                     {
                         text: "Suspect DNA methylation (epigenetics)",
-                        narrative: "The sequence is identical, but the expression is zero. You realize the pathogen is attaching chemical locks to its own promoter regions to sleep.",
+                        narrative: "You realize the pathogen is altering the chemistry of its DNA without altering the code. It's attaching chemical locks to its own promoter regions to sleep.",
                         outcomeTitle: "Epigenetics Identified",
-                        outcomeText: "You correctly identified the <strong>epigenetic mechanism</strong>. The pathogen is silencing its own genes via methylation to hide. You synthesize a demethylating agent to force the pathogen out of hiding.",
+                        outcomeText: "You correctly identified the <strong>epigenetic mechanism</strong>. The pathogen is silencing its own genes via DNA methylation at CpG islands, physically blocking transcription factors to hide from the immune system. You synthesize a demethylating agent to forcefully wake the pathogen up so the antibodies can destroy it.",
                         type: "success", nextStage: "stage7"
                     },
                     {
                         text: "Suspect horizontal gene transfer",
-                        narrative: "The parasite must be absorbing human DNA and deleting its own to hide. You look for signs of the host's genome merging with the pathogen.",
+                        narrative: "The parasite must be absorbing human DNA to disguise itself and deleting its own toxin genes to hide. You look for signs of the host's genome merging with the pathogen.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "Humans do not possess the <em>Toxin-X</em> gene. Horizontal gene transfer doesn't work like this. You completely misunderstand gene regulation. The pathogen resurges.",
+                        outcomeText: "Humans do not possess the <em>Toxin-X</em> gene for the parasite to absorb, and deleting a gene isn't 'dormancy.' You completely misunderstand the fundamentals of gene regulation. The pathogen outsmarts your treatments and resurges with a vengeance.",
                         type: "gameover", nextStage: "stage6"
                     },
                     {
                         text: "Alter the environmental temperature",
-                        narrative: "Maybe the hospital's climate control is triggering a hibernation state. You order the ward's temperature raised to wake it up.",
+                        narrative: "Maybe the hospital's cold climate control is triggering a physical hibernation state. You order the ward's temperature raised to 35 degrees to sweat it out.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "Temperature does not reverse profound genomic silencing. The patients sweat, but the pathogen remains hidden. Time wasted.",
+                        outcomeText: "External temperature changes do not reverse profound, targeted genomic silencing. The patients are miserable and sweating profusely, but the pathogen remains hidden at the molecular level. Time wasted.",
                         type: "neutral", nextStage: "stage6"
                     }
                 ]
@@ -345,30 +369,34 @@
                 title: "Stage 7: The Precision Strike",
                 imageUrl: getTerminalImage("WEAPON: CRISPR-CAS9 SYSTEM ARMED"),
                 text: `
-                    <p>We can't keep playing whack-a-mole. The Director-General wants a permanent cure: a way to cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells.</p>
-                    <p class="font-mono text-sky-400 mt-6">How do you specifically target and cut ONLY the pathogen's DNA without shredding the human patient's DNA?</p>
+                    <p>The epigenetic drugs worked, but Datuk Radzi is pacing in your office, furious and exhausted. "We cannot keep playing whack-a-mole with this parasite, Doctor. Demethylating agents, antibodies, RNAi... it's just putting band-aids on a bullet wound. The organism is still physically inside them."</p>
+                    <p>He leans over your desk. "I want a permanent cure. I want you to cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells. Eradicate its weapon."</p>
+                    <p>You swallow hard. In-vivo recombinant DNA editing on a massive scale. It's the molecular equivalent of defusing a bomb inside a crowded room.</p>
+                    <p>You load up your genetic modeling software. You need a pair of molecular scissors that are unfathomably precise.</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">How do you specifically target and cut ONLY the pathogen's DNA without shredding the human patient's entire genome?</p>
                 `,
                 progress: 85,
                 choices: [
                     {
                         text: "Inject EcoRI restriction enzyme",
-                        narrative: "You need chemical scissors. You order a massive dose of the generic EcoRI enzyme to chop the pathogen's DNA to pieces inside the host.",
+                        narrative: "You need powerful chemical scissors. You order a massive dose of the generic EcoRI enzyme to chop the pathogen's DNA to pieces inside the host.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "EcoRI is a generic enzyme. The sequence GAATTC appears millions of times in the human genome. You just shredded the patient's own DNA, causing catastrophic cellular failure.",
+                        outcomeText: "EcoRI is a generic restriction enzyme. The sequence it targets, GAATTC, appears millions of times naturally in the human genome. You just shredded the patient's own DNA alongside the pathogen, causing catastrophic cellular failure.",
                         type: "gameover", nextStage: "stage7"
                     },
                     {
-                        text: "Expose patients to UV radiation",
-                        narrative: "Radiation breaks DNA bonds. You decide to blast the patients' lungs with targeted UV light to shatter the parasite's genome.",
+                        text: "Expose patients to targeted UV radiation",
+                        narrative: "Radiation breaks DNA bonds. You decide to blast the patients' lungs with highly targeted UV light to shatter the parasite's genome without drugs.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "UV radiation causes random thymine dimers. It damages the pathogen and host indiscriminately, but does not specifically delete the target gene. The pathogen survives.",
+                        outcomeText: "UV radiation causes random thymine dimers. It damages the pathogen and the human host indiscriminately, but it does not specifically target or delete the <em>Toxin-X</em> gene. The pathogen's repair mechanisms kick in, and it survives.",
                         type: "neutral", nextStage: "stage7"
                     },
                     {
-                        text: "Deploy a CRISPR-Cas9 system",
-                        narrative: "This requires a sniper rifle, not a shotgun. You engineer a custom guide RNA to ensure the Cas9 enzyme only cleaves the parasite's lethal gene.",
+                        text: "Deploy a custom CRISPR-Cas9 system",
+                        narrative: "This requires a molecular sniper rifle, not a shotgun. You turn to the programmable immunity of bacteria. You engineer a custom guide RNA to ensure the Cas9 endonuclease only cleaves the parasite's lethal gene.",
                         outcomeTitle: "Target Locked",
-                        outcomeText: "You successfully utilized the precision of <strong>CRISPR-Cas9</strong>. The guide RNA ensures only the parasite's lethal gene is targeted and cleaved, neutralizing its ability to produce the toxin!",
+                        outcomeText: "You successfully utilized the unparalleled precision of <strong>CRISPR-Cas9</strong>. The 20-nucleotide synthetic guide RNA ensures only the parasite's lethal gene is targeted and cleaved, permanently neutralizing its ability to produce the toxin without harming a single human cell!",
                         type: "success", nextStage: "stage8"
                     }
                 ]
@@ -377,30 +405,34 @@
                 title: "Stage 8: The Final Delivery",
                 imageUrl: getTerminalImage("DELIVERY: NANOFORMULATION DEPLOYED"),
                 text: `
-                    <p>You have the CRISPR payload. However, naked genetic material injected into the bloodstream will be instantly destroyed by human nucleases. Furthermore, the patients' lungs are now suffering from secondary bacterial pneumonia.</p>
-                    <p class="font-mono text-sky-400 mt-6">How do you safely deliver the gene-editing payload and treat the pneumonia simultaneously?</p>
+                    <p>You have the CRISPR-Cas9 payload. It is a masterpiece of genetic engineering. But as you prepare the vials, the Head of Pharmacy calls with devastating news.</p>
+                    <p>"Doctor, the patients' lungs are heavily scarred from the initial toxin exposure. Opportunistic bacteria have moved in. Every single critical patient now has severe, secondary bacterial pneumonia on top of the parasitic infection."</p>
+                    <p>Your heart sinks. If you inject the naked CRISPR genetic material directly into their bloodstream, the body's natural nucleases will destroy it instantly before it ever reaches the lungs. And even if it did, the bacterial pneumonia will kill them before the parasite does.</p>
+                    <p>You need a delivery vehicle that is nothing short of science fiction—something that can shield the fragile CRISPR payload from the blood stream, penetrate the thick lung tissue, and kill the bacterial infection simultaneously.</p>
+                    <hr class="border-slate-700 my-6">
+                    <p class="font-mono text-sky-400 text-lg">You stare at the pharmacological synthesis deck. How do you safely deliver the gene-editing payload and treat the pneumonia at the exact same time?</p>
                 `,
                 progress: 95,
                 choices: [
                     {
-                        text: "Administer naked plasmids via nebulizer",
-                        narrative: "The lungs are right there. You put the raw CRISPR plasmids into an oxygen mask and hope the patients breathe enough in to work.",
+                        text: "Administer naked plasmids via a nebulizer mask",
+                        narrative: "The lungs are right there. You bypass the bloodstream entirely, putting the raw CRISPR plasmids into an oxygen mask and hoping the patients breathe enough of it deep into their alveoli.",
                         outcomeTitle: "Fatal Error",
-                        outcomeText: "Naked plasmids are far too large and unstable to cross lung epithelia without a vector. The CRISPR payload degrades instantly. The patients succumb to the pneumonia.",
+                        outcomeText: "Naked plasmids are far too large, highly negatively charged, and unstable to cross the thick cell membranes of the lung epithelia without a viral or chemical vector. The CRISPR payload degrades instantly in the mucus. The patients succumb to the pneumonia.",
                         type: "gameover", nextStage: "stage8"
                     },
                     {
-                        text: "Combine CRISPR and antibiotics in a pill",
-                        narrative: "Keep it simple. You pack the genetic payload and oral antibiotics into a gelatin capsule and have the nurses administer it.",
+                        text: "Combine CRISPR and antibiotics in an oral capsule",
+                        narrative: "Keep it simple. You pack the fragile genetic payload and heavy oral antibiotics into a gelatin capsule and have the nurses administer it.",
                         outcomeTitle: "Neutral Delay",
-                        outcomeText: "Stomach acid completely destroys the CRISPR plasmids. The antibiotic fights the pneumonia slightly, but the parasite remains untouched.",
+                        outcomeText: "The stomach acid and harsh digestive enzymes completely denature and destroy the CRISPR plasmids before they can even reach the intestines to enter the bloodstream. The antibiotic fights the pneumonia slightly, but the parasite remains armed. The patients are still dying.",
                         type: "neutral", nextStage: "stage8"
                     },
                     {
-                        text: "Deploy a dual-action nanoformulation",
-                        narrative: "A problem this complex needs a sophisticated vehicle. You utilize two separate nanoparticle systems: solid lipid nanoparticles (SLNs) for the CRISPR payload, and a chitosan-based system to fight the secondary pneumonia.",
+                        text: "Deploy a dual-action nanoparticle formulation",
+                        narrative: "A problem this complex needs a highly sophisticated vehicle. You synthesize two separate nanoparticle systems: solid lipid nanoparticles (SLNs) to cloak the CRISPR payload, and a chitosan-based system to combat the bacteria.",
                         outcomeTitle: "Delivery Successful",
-                        outcomeText: "The brilliant application of a dual-action nanoformulation saves the day. The SLNs bypass defenses to deliver CRISPR, while the chitosan clears the secondary infection.",
+                        outcomeText: "The brilliant application of a dual-action nanoformulation saves the day. The systems work in perfect tandem—the SLNs seamlessly bypass the body's defenses to deliver the CRISPR payload directly into the parasite's cells, while the chitosan nanoparticles clear out the secondary bacterial infection.",
                         type: "success", nextStage: "epilogue"
                     }
                 ]
@@ -409,15 +441,20 @@
                 title: "Epilogue: The Chimera Protocol",
                 imageUrl: getTerminalImage("WARNING: SYNTHETIC CHIMERA DETECTED"),
                 text: `
-                    <p>The harsh, clinical fluorescent lights of the MKAK laboratory seemed to soften as the first golden rays of morning sun breached the windows. You stand before the main command screen. On the glowing map of Malaysia, the flashing red quarantine zones are slowly turning green. The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence. Patients given hours to live are now breathing on their own.</p>
-                    <p>The Director-General steps in, a profound smile breaking across his exhausted face. "You did it," he says. "Code Red is over. You saved millions."</p>
+                    <p>The harsh, clinical fluorescent lights of the MKAK laboratory seem to soften as the first golden rays of morning sun breach the windows. You stand before the main command screen, the hum of the servers a comforting white noise behind you. On the glowing map of Malaysia, the flashing red quarantine zones in Pahang, Selangor, and Johor are slowly turning green.</p>
+                    <p>The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence across thousands of patients. People who were given hours to live are now breathing on their own, their ventilators switched off.</p>
+                    <p>The laboratory doors slide open, and Datuk Radzi steps in. He looks ten years older than he did a month ago, but a massive, profound smile breaks across his face. He walks over and firmly clasps your shoulder.</p>
+                    <p>"You did it, Doctor," he says, his voice thick with emotion. "The Ministry is officially standing down from Code Red. The Banjaran Agent is neutralized. You saved the country."</p>
+                    <p>You allow yourself a deep, shuddering breath, the adrenaline finally leaving your system. The nightmare is over.</p>
                     <hr class="border-slate-700 my-6">
                     <p class="font-mono text-slate-400 tracking-widest text-center">THREE MONTHS LATER</p>
                     <hr class="border-slate-700 my-6">
-                    <p>You are at your desk late Friday evening when the heavy blast doors of your private lab hiss open. Four armed military police officers escort a terrified customs inspector carrying a titanium bio-containment cylinder. Inside is a single, glowing amber vial intercepted at Port Klang.</p>
-                    <p>He hands you a secure tablet. You stare at the nucleotide sequence. It doesn't just read A, T, C, and G. There are <em>six</em> distinct letters on the screen.</p>
-                    <p>"It's not natural," you whisper. "Someone engineered this from scratch. A completely alien biochemistry."</p>
-                    <p>"And Doctor," the inspector adds grimly. "Our algorithms found a message encoded directly into the reading frame."</p>
+                    <p>The pandemic is a fading memory. You are sitting at your desk late on a Friday evening, typing up the final genomic architecture report for the journal <em>Nature</em>, when the heavy, biometric blast doors of your private laboratory hiss open.</p>
+                    <p>You look up, annoyed at the interruption. But it isn't Farah. Four armed military police officers step into the room, escorting a terrified-looking customs inspector carrying a sleek, titanium bio-containment cylinder. The inspector keys in a passcode, and the cylinder depressurizes with a hiss of freezing vapor. Inside is a single, glowing amber vial.</p>
+                    <p>"We intercepted a black-market shipment at Port Klang," the inspector says, handing you a secure tablet. "The scanners couldn't identify it. We ran a preliminary genomic sequence."</p>
+                    <p>You swipe through the data, your brow furrowing in confusion. You stare at the nucleotide sequence. It doesn't just read A, T, C, and G. There are <em>six</em> distinct letters on the screen. The organism possesses a fully expanded, completely synthetic genetic alphabet.</p>
+                    <p>"It's not natural," you whisper, a cold knot tightening in your stomach. "Someone engineered this from scratch."</p>
+                    <p>"And Doctor," the inspector adds grimly. "When our algorithms translated the synthetic spacer regions into binary... they found a message encoded directly into the reading frame."</p>
                     <div class="bg-black border border-red-900 p-4 rounded mt-6 font-mono text-red-500 text-sm md:text-base text-center leading-relaxed">
                         INITIAL TEST DEEMED SUCCESSFUL.<br>
                         BANJARAN PROTOTYPE DEFEATED BY TARGET.<br>
