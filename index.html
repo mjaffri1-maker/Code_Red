@@ -7,7 +7,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -15,128 +15,115 @@
             font-family: 'Inter', sans-serif;
             background-color: #0f172a; 
             color: #e2e8f0; 
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            transition: background-image 1s ease-in-out;
             background-attachment: fixed;
         }
         .font-mono {
             font-family: 'Fira Code', monospace;
         }
         .fade-in {
-            animation: fadeIn 0.5s ease-in forwards;
+            animation: fadeIn 0.8s ease-in forwards;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .choice-btn {
-            transition: all 0.2s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
         .choice-btn:hover {
-            transform: translateX(5px);
-            box-shadow: -4px 0px 0px 0px #38bdf8; 
+            transform: translateX(8px);
         }
-        ::-webkit-scrollbar {
-            width: 8px;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        .pulse-icon {
+            animation: pulseIcon 2s infinite;
         }
-        ::-webkit-scrollbar-track {
-            background: #1e293b; 
+        @keyframes pulseIcon {
+            0% { box-shadow: 0 0 0 0 var(--theme-pulse); }
+            70% { box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
         }
-        ::-webkit-scrollbar-thumb {
-            background: #475569; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b; 
-        }
-        .pulse-red {
-            animation: pulseRed 2s infinite;
-        }
-        @keyframes pulseRed {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
+        
         .stage-image {
             width: 100%;
-            max-height: 200px;
+            max-height: 220px;
             object-fit: cover;
             border-radius: 0.75rem; 
-            border: 1px solid #334155; 
+            border: 1px solid rgba(255,255,255,0.1); 
             margin-bottom: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
         }
+
         .narrative-text p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.08rem;
+            line-height: 1.7;
         }
 
         /* Printable PDF Styling */
-        #pdf-report-template {
-            background-color: white;
-            color: black;
-            padding: 40px;
-            width: 100%;
-        }
-        .print-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-family: sans-serif;
-            font-size: 14px;
-        }
-        .print-table th, .print-table td {
-            border: 1px solid #cbd5e1;
-            padding: 12px;
-            text-align: left;
-        }
-        .print-table th {
-            background-color: #f1f5f9;
-            font-weight: bold;
-        }
+        #pdf-report-template { background-color: white; color: black; padding: 40px; width: 100%; font-family: serif; position: relative;}
+        .print-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: sans-serif; font-size: 14px; }
+        .print-table th, .print-table td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+        .print-table th { background-color: #f1f5f9; font-weight: bold; }
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 80px; color: rgba(239, 68, 68, 0.1); font-weight: 900; pointer-events: none; z-index: 0; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased" id="app-body" style="--theme-pulse: rgba(239, 68, 68, 0.7);">
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=dark-ambient-115166.mp3" type="audio/mpeg">
+    </audio>
 
     <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 shadow-md">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center pulse-red">
+                <div id="header-icon" class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center pulse-icon transition-colors duration-500">
                     <i class="fa-solid fa-biohazard text-white text-sm"></i>
                 </div>
-                <h1 class="text-xl font-bold tracking-wider text-slate-100 font-mono uppercase">CODE RED<span class="text-slate-500 font-sans font-normal text-base">: Operational Interface</span></h1>
+                <h1 class="text-xl font-bold tracking-wider text-slate-100 font-mono uppercase">CODE RED<span class="text-slate-500 font-sans font-normal text-base hidden sm:inline">: Operational Interface</span></h1>
             </div>
-            <div id="status-tag" class="text-xs font-mono px-3 py-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 text-emerald-400 hidden sm:block">
-                CLEARANCE: LEVEL-4
+            
+            <div class="flex items-center gap-4">
+                <button id="audio-toggle" onclick="toggleAudio()" class="text-slate-400 hover:text-white transition-colors" title="Toggle Audio">
+                    <i class="fa-solid fa-volume-xmark text-lg"></i>
+                </button>
+                <div id="status-tag" class="text-xs font-mono px-3 py-1 rounded-full border border-slate-600 bg-slate-800 text-slate-300 hidden sm:block transition-colors duration-500">
+                    SYSTEM STANDBY
+                </div>
             </div>
         </div>
     </header>
 
     <main class="flex-grow p-4 md:p-8 flex justify-center w-full">
-        <div class="max-w-3xl w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl shadow-2xl overflow-hidden flex flex-col relative">
+        <div id="game-card" class="max-w-3xl w-full bg-slate-800/60 backdrop-blur-md border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col relative transition-colors duration-500">
             
-            <div class="h-1.5 w-full bg-slate-700 absolute top-0 left-0">
-                <div id="progress-bar" class="h-full bg-sky-500 transition-all duration-500 w-0"></div>
+            <div class="h-1.5 w-full bg-slate-900 absolute top-0 left-0">
+                <div id="progress-bar" class="h-full bg-red-500 transition-all duration-700 w-0"></div>
             </div>
 
-            <div class="p-6 md:p-10 flex-grow flex flex-col">
-                <div id="story-container" class="narrative-text text-slate-300 leading-relaxed fade-in text-[1.05rem]">
+            <div class="p-6 md:p-12 flex-grow flex flex-col">
+                <div id="story-container" class="narrative-text text-slate-300 fade-in">
                     </div>
 
-                <div class="flex-grow min-h-[2rem]"></div>
+                <div class="flex-grow min-h-[3rem]"></div>
 
-                <div id="interaction-area" class="mt-8 border-t border-slate-700 pt-6">
+                <div id="interaction-area" class="mt-8 border-t border-slate-700/50 pt-8">
                     </div>
             </div>
         </div>
     </main>
 
-    <footer class="text-center p-6 text-slate-500 text-xs font-mono">
-        MKAK (Makmal Kesihatan Awam Kebangsaan) • Genomic Epidemiology Division • Level 4 Access Required
+    <footer class="text-center p-6 text-slate-500 text-xs font-mono uppercase tracking-widest">
+        MKAK Genomic Epidemiology Division • Level 4 Access Required
     </footer>
 
     <div id="hidden-pdf-container" class="hidden absolute top-[-9999px] left-[-9999px]">
         <div id="pdf-report-template">
+            <div class="watermark">CLASSIFIED</div>
             <div style="border-bottom: 3px solid #1e293b; padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between;">
                 <div>
                     <h1 style="margin: 0; font-size: 24px; font-weight: bold;">MKAK INTELLIGENCE REPORT</h1>
@@ -164,132 +151,253 @@
                 <tbody id="pdf-table-body">
                     </tbody>
             </table>
-            
-            <p style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center; font-style: italic;">
-                This document is a certified export from the MKAK biological defense simulation mainframe.
-            </p>
         </div>
     </div>
 
     <script>
-        // Array to track student choices
+        // Audio Control
+        let isAudioPlaying = false;
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.4;
+
+        function toggleAudio() {
+            const icon = document.querySelector('#audio-toggle i');
+            if (isAudioPlaying) {
+                bgMusic.pause();
+                icon.className = 'fa-solid fa-volume-xmark text-lg';
+                isAudioPlaying = false;
+            } else {
+                bgMusic.play();
+                icon.className = 'fa-solid fa-volume-high text-lg text-emerald-400';
+                isAudioPlaying = true;
+            }
+        }
+
+        // Student tracking log
         let studentLog = [];
 
-        function getTerminalImage(text) {
+        // Dynamic Terminal Image Generator
+        function getTerminalImage(text, colorHex) {
             const encodedText = encodeURIComponent(text);
-            return `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Crect width='100%25' height='100%25' fill='%230f172a'/%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23334155' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' fill='%2338bdf8' font-family='monospace' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E%3E_ ${encodedText}%3C/text%3E%3C/svg%3E`;
+            return `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Crect width='100%25' height='100%25' fill='%230f172a'/%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23334155' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' fill='%23${colorHex}' font-family='monospace' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E%3E_ ${encodedText}%3C/text%3E%3C/svg%3E`;
         }
+
+        // Theming configuration for each stage
+        const themes = {
+            dark:    { hex: '64748b', rgb: '100, 116, 139', tailwind: 'slate-500' },
+            red:     { hex: 'ef4444', rgb: '239, 68, 68',   tailwind: 'red-500' },
+            emerald: { hex: '10b981', rgb: '16, 185, 129',  tailwind: 'emerald-500' },
+            blue:    { hex: '3b82f6', rgb: '59, 130, 246',  tailwind: 'blue-500' },
+            amber:   { hex: 'f59e0b', rgb: '245, 158, 11',  tailwind: 'amber-500' },
+            orange:  { hex: 'f97316', rgb: '249, 115, 22',  tailwind: 'orange-500' },
+            purple:  { hex: '8b5cf6', rgb: '139, 92, 246',  tailwind: 'purple-500' },
+            cyan:    { hex: '06b6d4', rgb: '6, 182, 212',   tailwind: 'cyan-500' },
+            teal:    { hex: '14b8a6', rgb: '20, 184, 166',  tailwind: 'teal-500' }
+        };
 
         const gameData = {
             prologue: {
                 title: "Prologue: The Patient Zero Event",
-                imageUrl: getTerminalImage("LOCATION: BANJARAN TITIWANGSA - PATIENT ZERO"),
-                text: "<p>The chainsaw sputtered and died, the sudden silence swallowed instantly by the deafening hum of cicadas. Deep in Sector 4 of the Banjaran Titiwangsa logging concession, Azman wiped a mix of sawdust and sweat from his eyes. Before him lay the shattered trunk of a massive, ancient <em>cengal</em> tree, hollowed out by centuries of rot.</p><p>As the trunk had split open, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was exactly forty-eight hours ago.</p><p>Now, it was 2:00 AM in the isolated workers' barracks, and Azman felt like he was drowning in his own bed. His chest heaved violently, each breath sounding like wet paper tearing.</p><p>\"His temperature is forty-one degrees,\" Harris the medic muttered into his radio, his voice shaking. \"Base, this is Camp Echo. I need a medivac chopper now. It's not malaria. It's not dengue. It's... something else.\"</p><p>Azman convulsed, a violent spasm arching his back. He rolled onto his side and coughed. It wasn't mucus that splattered onto the white linoleum floor; it was a dark, frothy, viscous fluid. His lung tissue was liquefying.</p><hr class='border-slate-700 my-6'><p class='text-sky-400 font-semibold italic'>You are the Senior Genomic Epidemiologist at MKAK in Sungai Buloh. At 4:00 AM, your secure phone rings. The Ministry of Health has enacted Code Red. You have 48 hours to decode this pathogen before the outbreak breaches the borders of Selangor.</p>",
+                theme: 'dark',
+                text: `
+                    <p>The chainsaw sputtered and died, the sudden silence swallowed instantly by the deafening hum of cicadas. Deep in Sector 4 of the Banjaran Titiwangsa logging concession, Azman wiped a mix of sawdust and sweat from his eyes. Before him lay the shattered trunk of a massive, ancient <em>cengal</em> tree, hollowed out by centuries of rot.</p>
+                    <p>As the trunk had split open, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was exactly forty-eight hours ago.</p>
+                    <p>Now, it was 2:00 AM in the isolated workers' barracks, and Azman felt like he was drowning in his own bed. His chest heaved violently, each breath sounding like wet paper tearing.</p>
+                    <p>"His temperature is forty-one degrees," Harris, the camp medic, muttered into his radio, his voice shaking. "Base, this is Camp Echo. I need a medivac chopper now. It's not malaria. It's not dengue. It's... something else."</p>
+                    <p>Azman convulsed, a violent spasm arching his back. He rolled onto his side and coughed. It wasn't mucus that splattered onto the white linoleum floor; it was a dark, frothy, viscous fluid. His lung tissue was rapidly liquefying.</p>
+                    <hr class='border-slate-700/50 my-6'>
+                    <p class='text-slate-400 font-semibold italic'>You are the Senior Genomic Epidemiologist at the National Public Health Laboratory (MKAK) in Sungai Buloh. You've spent your entire career preparing for the "Big One." At 4:00 AM, your secure bedside phone rings. The Ministry of Health has enacted Code Red. You have 48 hours to decode this pathogen before the outbreak breaches the borders of Selangor.</p>`,
                 progress: 0,
                 choices: [
-                    { text: "Acknowledge Briefing & Enter Laboratory", narrative: "Swipe your Level 4 clearance badge. Millions of lives are depending on your understanding of molecular biology.", type: "success", nextStage: "stage1" }
+                    { text: "Initialize System & Enter Laboratory", narrative: "Swipe your Level 4 clearance badge. Millions of lives are depending on your understanding of molecular biology. The mission starts now.", type: "success", nextStage: "stage1" }
                 ]
             },
             stage1: {
                 title: "Phase 1: The Chemical Signature",
-                imageUrl: getTerminalImage("ANALYSIS: MACROMOLECULE EXTRACTION"),
-                text: "<p>The thrum of the Level 4 Bio-Safety Lab is deafening. Under the electron microscope, the pathogen is a highly complex, airborne, eukaryotic parasite.</p><p>Before you can sequence its genome, you must extract its pure genetic material. Farah, your junior biochemist, applied a harsh lysis buffer but accidentally dropped the tubes. The labels peeled off.</p><ul class='list-disc pl-6 space-y-2 text-slate-400 mt-4 mb-4'><li><strong class='text-slate-200'>Fraction Alpha:</strong> Tightly folded 3D structures, rich in sulfur, held together by disulfide bridges.</li><li><strong class='text-slate-200'>Fraction Beta:</strong> Viscous, acidic, zero sulfur, exceptionally high in phosphorus and pentose sugars.</li><li><strong class='text-slate-200'>Fraction Gamma:</strong> Hydrophobic, greasy long hydrocarbon chains.</li></ul><p class='font-mono text-sky-400 text-lg'>Which fraction contains the heritable blueprint of the pathogen?</p>",
+                theme: 'emerald',
+                text: `
+                    <p>The thrum of the Level 4 Bio-Safety Lab's negative pressure system is deafening. You are sealed inside a heavy hazmat suit. Patient Zero's bronchoalveolar lavage fluid arrived twenty minutes ago via military escort. You placed a slide under the electron microscope.</p>
+                    <p>You expected a coronavirus or a novel influenza strain. Instead, staring back at you from the monitor is a highly complex, airborne, single-celled eukaryotic parasite. It is massive, armored, and entirely undocumented in any WHO database.</p>
+                    <p>Before you can sequence its genome to understand what you're fighting, you must extract its pure genetic material. Farah, your junior biochemist, applied a harsh lysis buffer to crack the parasite's thick cellular wall. But in her sleep-deprived panic, she dropped the tubes. The labels peeled off.</p>
+                    <p>"Doctor, I'm so sorry!" Farah cries over the intercom. She holds up three distinct cellular fractions she isolated from the pathogen's nucleus.</p>
+                    <ul class='list-disc pl-6 space-y-2 text-slate-400 mt-4 mb-6 font-mono text-sm bg-slate-900/50 p-4 rounded-lg border border-slate-700'>
+                        <li><strong class='text-slate-200'>Fraction Alpha:</strong> Tightly folded 3D structures, rich in sulfur, held together by disulfide bridges.</li>
+                        <li><strong class='text-slate-200'>Fraction Beta:</strong> Viscous, acidic, zero sulfur, exceptionally high in phosphorus and pentose sugars.</li>
+                        <li><strong class='text-slate-200'>Fraction Gamma:</strong> Hydrophobic, greasy long hydrocarbon chains forming a film.</li>
+                    </ul>
+                    <p class='font-bold text-emerald-400 text-lg'>The sequencer is primed. Which fraction contains the heritable blueprint of the pathogen?</p>`,
                 progress: 12,
                 choices: [
-                    { text: "Extract Fraction Alpha", narrative: "The sheer physical complexity of these 3D folded structures must be the key.", outcomeTitle: "Fatal Error", outcomeText: "You loaded structural glycoproteins. You failed to recall Friedrich Miescher, who discovered 'nuclein' precisely because it contained phosphorus but lacked sulfur. The pathogen spreads.", type: "gameover", nextStage: "stage1" },
-                    { text: "Extract Fraction Beta", narrative: "Heredity lies in the phosphorus, not the sulfur.", outcomeTitle: "Extraction Successful", outcomeText: "You correctly identified the nucleic acids based on Miescher and Levene's work. You finally have the parasite's DNA.", type: "success", nextStage: "stage2" },
-                    { text: "Extract Fraction Gamma", narrative: "Investigate the pathogen's lipid armor first.", outcomeTitle: "Neutral Delay", outcomeText: "You isolated the lipid bilayer. The sequencer spits out an error. You've wasted 12 precious hours running the wrong biomolecule.", type: "neutral", nextStage: "stage1" }
+                    { text: "Extract Fraction Alpha", narrative: "The sheer physical complexity of these 3D folded structures must be the key to the organism's lethality. Load the sulfur-rich fraction.", outcomeTitle: "Fatal Error", outcomeText: "You loaded structural glycoproteins. They cannot replicate, and they don't contain the genetic code. In the heat of the moment, you failed to recall the pioneering work of Friedrich Miescher, who discovered 'nuclein' (DNA) precisely because it contained phosphorus but lacked sulfur. The pathogen spreads to Penang while you waste three days trying to sequence a dead protein.", type: "gameover", nextStage: "stage1" },
+                    { text: "Extract Fraction Beta", narrative: "Take a deep breath and remember foundational biochemistry. Heredity lies in the phosphorus, not the sulfur.", outcomeTitle: "Extraction Successful", outcomeText: "You correctly identified the nucleic acids. You recognized the breakdown components as the 'nucleotides' characterized by Phoebus Levene. The acidic, phosphorus-rich fraction is loaded into the sequencer. You finally have the parasite's DNA.", type: "success", nextStage: "stage2" },
+                    { text: "Extract Fraction Gamma", narrative: "The thick, greasy layer seems highly unusual for a respiratory sample. Investigate the pathogen's outer lipid armor first.", outcomeTitle: "Neutral Delay", outcomeText: "You isolated the pathogen's lipid bilayer. You put it in the sequencer, and nothing happens. The machine spits out a format error. You've wasted 12 precious hours running the wrong biomolecule while the infection quietly spreads to Ipoh.", type: "neutral", nextStage: "stage1" }
                 ]
             },
             stage2: {
                 title: "Phase 2: The Structural Blueprint",
-                imageUrl: getTerminalImage("TARGET: SYNTHESIZING DNA PRIMER"),
-                text: "<p>The sequencer confirms a unique, highly conserved single-stranded region in the pathogen's genome.</p><p>The Director-General of Health calls. \"Doctor, KLIA checkpoints are in chaos. I need a rapid diagnostic PCR test shipped to the borders yesterday. Do you have a primer yet?\"</p><p>You must synthesize a custom DNA primer that binds perfectly to this target: <code class='bg-slate-700 px-2 py-1 rounded text-sky-300 font-bold'>5'-A-A-T-G-C-C-A-T-3'</code>.</p><p>Farah asks, \"Should I just program the machine to mix equal parts A, T, C, and G to create a repeating block?\"</p>",
+                theme: 'blue',
+                text: `
+                    <p>The sequencer hums, outputting terabytes of data. You've stripped off your hazmat suit and are sitting in the cold server room. The pathogen's genome is massive, but you've found a vulnerability—a unique, highly conserved single-stranded DNA region.</p>
+                    <p>The intercom buzzes. It's the Director-General of Health, Datuk Dr. Radzi. "Doctor, KLIA and Johor Bahru checkpoints are in chaos. We have passengers collapsing in the terminals. I need a rapid diagnostic PCR test shipped out to the borders <em>yesterday</em>. Do you have a primer yet?"</p>
+                    <p>"Working on it now, Datuk," you reply, rubbing your temples.</p>
+                    <p>To build the PCR test, you must synthesize a custom DNA primer that will bind perfectly to this specific target sequence in the pathogen's genome: <code class='bg-blue-900/50 px-2 py-1 rounded text-blue-300 font-bold border border-blue-500/30'>5'-A-A-T-G-C-C-A-T-3'</code>.</p>
+                    <p>Farah is standing by the DNA synthesizer. "Doctor, we're out of time. Should I just program the machine to mix equal parts A, T, C, and G? It should create a repeating block that catches the sequence, right?"</p>`,
                 progress: 25,
                 choices: [
-                    { text: "Synthesize generic repeating probe", narrative: "Tell her to assume a generic 25% distribution of all bases.", outcomeTitle: "Diagnostic Failure", outcomeText: "You fell for Levene's disproven 'Tetranucleotide Hypothesis.' Your primer lacks specificity. The rapid test fails nationwide.", type: "gameover", nextStage: "stage2" },
-                    { text: "Design exact anti-parallel strand", narrative: "Map out the specific hydrogen bonds required to create a perfect mirror image.", outcomeTitle: "Synthesis Successful", outcomeText: "Applying Erwin Chargaff's rules (A=T, C=G), you synthesize the exact complementary primer (3'-T-T-A-C-G-G-T-A-5'). The tests are deployed!", type: "success", nextStage: "stage3" },
-                    { text: "Reverse-engineer from proteins", narrative: "Sequence the amino acids first and work backward.", outcomeTitle: "Information Stalemate", outcomeText: "Because the genetic code is degenerate, you cannot accurately reverse-engineer the exact DNA sequence. Time wasted.", type: "neutral", nextStage: "stage2" }
+                    { text: "Synthesize generic repeating probe", narrative: "Farah might be right. Desperate times call for quick, broad strokes. Tell her to assume a generic 25% distribution of all bases.", outcomeTitle: "Diagnostic Failure", outcomeText: "You fell for Phoebus Levene's disproven 'Tetranucleotide Hypothesis.' By assuming DNA is just a repeating block of equal bases, your primer lacks all specificity. It binds to random human DNA and environmental bacteria. The rapid test fails nationwide, resulting in thousands of false negatives.", type: "gameover", nextStage: "stage2" },
+                    { text: "Design an exact anti-parallel strand", narrative: "Wave Farah off. 'No shortcuts.' Map out the specific hydrogen bonds required to create a perfect mirror image.", outcomeTitle: "Synthesis Successful", outcomeText: "You applied Erwin Chargaff's rules of base pairing (A=T, C=G) and the anti-parallel double-helix architecture solved by Watson and Crick. You synthesize the exact complementary primer (3'-T-T-A-C-G-G-T-A-5'). The rapid tests are successfully deployed to the airports!", type: "success", nextStage: "stage3" },
+                    { text: "Reverse-engineer from extracted proteins", narrative: "DNA synthesis is taking too long to model. Sequence the amino acids of the virus first and work backward to deduce the genetic code.", outcomeTitle: "Information Stalemate", outcomeText: "Because the genetic code is degenerate (multiple codons code for the same amino acid), you cannot accurately reverse-engineer the exact DNA sequence. Your synthetic primers are mismatched guesses. The PCR yields no bands. You lost a day of testing.", type: "neutral", nextStage: "stage2" }
                 ]
             },
             stage3: {
                 title: "Phase 3: The Lethal Mechanism",
-                imageUrl: getTerminalImage("PATHWAY: CENTRAL DOGMA INTERCEPTION"),
-                text: "<p>The ICU at Hospital Sungai Buloh is crashing. The pathogen's <em>Toxin-X</em> gene is producing a neurotoxin that liquefies human tissue.</p><p>You need to develop a targeted RNA interference (RNAi) drug to intercept the pathogen's biological assembly line inside the host.</p><p class='font-mono text-sky-400 text-lg'>How does the pathogen's genetic information transform into the lethal protein?</p>",
+                theme: 'red',
+                text: `
+                    <p>The PCR tests are working. The nation's borders are secure, and you finally have a moment to breathe. You take a sip of cold coffee when the red phone on your desk rings violently. It's the Head of ICU at Hospital Sungai Buloh.</p>
+                    <p>"Doctor, the isolation ward is crashing. All of them," the ICU head shouts over blaring alarms. "The pathogen isn't just reproducing; it's actively melting their lung tissue. Mechanical ventilators are useless if there are no lungs left to ventilate. We need a therapeutic drug immediately, or we lose fifty people by midnight."</p>
+                    <p>You slam your coffee down and pull up the pathogen's genomic map. You find it: a gene you dub <em>Toxin-X</em>. This gene codes for the vicious neurotoxin protein responsible for liquefying human tissue.</p>
+                    <p>You need to develop a targeted RNA interference (RNAi) drug to stop the parasite from producing this toxin while it lives inside the host's cells. To do this, your drug must intercept the pathogen's biological assembly line at the exact right moment.</p>
+                    <p class='font-bold text-red-400 text-lg'>You look at the biological blueprints. How does the pathogen's genetic information transform into the lethal neurotoxin protein?</p>`,
                 progress: 37,
                 choices: [
-                    { text: "Target direct DNA-to-Ribosome pathway", narrative: "Assume the parasite ejects its DNA straight into the host's cytoplasm.", outcomeTitle: "Fatal Error", outcomeText: "DNA does not leave the nucleus to be read by ribosomes. You misunderstood the Central Dogma. Your drug fails.", type: "gameover", nextStage: "stage3" },
-                    { text: "Target intermediate mRNA transcript", narrative: "Hunt down the messenger RNA before it reaches translation machinery.", outcomeTitle: "Mechanism Intercepted", outcomeText: "You targeted the Central Dogma (DNA -> RNA -> Protein). Your RNAi therapeutic degrades the mRNA before ribosomes can read it. Patients stabilize!", type: "success", nextStage: "stage4" },
-                    { text: "Administer high-dose Penicillin", narrative: "Order max broad-spectrum antibiotics to break the cell wall.", outcomeTitle: "Ineffective Therapy", outcomeText: "The pathogen is a eukaryote; it lacks peptidoglycan cell walls. Penicillin does nothing but waste time.", type: "neutral", nextStage: "stage3" }
+                    { text: "Target the direct DNA-to-Ribosome pathway", narrative: "You hypothesize the parasite acts incredibly fast by ejecting its DNA straight out of the nucleus into the host's cytoplasm. Design a drug to block this direct DNA transfer.", outcomeTitle: "Fatal Error", outcomeText: "DNA does not leave the nucleus to be directly read by ribosomes. You have fundamentally misunderstood the Central Dogma of Molecular Biology. Your RNAi drug targets a pathway that doesn't exist. By midnight, the ICU goes quiet for the worst possible reason.", type: "gameover", nextStage: "stage3" },
+                    { text: "Target the intermediate mRNA transcript", narrative: "The Central Dogma holds true, even for this nightmare organism. Design an RNAi drug to hunt down the messenger RNA in the cytoplasm before it ever reaches the translation machinery.", outcomeTitle: "Mechanism Intercepted", outcomeText: "You accurately targeted the Central Dogma (DNA -> RNA -> Protein). Your RNAi therapeutic successfully intercepts and degrades the intermediate mRNA transcripts before the ribosomes can read them. Toxin production halts. The patients stabilize!", type: "success", nextStage: "stage4" },
+                    { text: "Administer high-dose Penicillin", narrative: "Molecular targeting is too slow. Order the ICU to max out the patients' broad-spectrum penicillin drips to violently break the pathogen's cell wall.", outcomeTitle: "Ineffective Therapy", outcomeText: "Penicillin targets bacterial peptidoglycan cell walls. The Banjaran Agent is a complex eukaryote; it doesn't possess one. The drug does absolutely nothing but damage the patients' kidneys. The ICU remains critical while you pivot back to the drawing board.", type: "neutral", nextStage: "stage3" }
                 ]
             },
             stage4: {
                 title: "Phase 4: The Evasion",
-                imageUrl: getTerminalImage("ALERT: TRANSPOSABLE ELEMENT DETECTED"),
-                text: "<p>Disaster. The PCR tests are suddenly failing. Patients are testing negative but showing severe symptoms.</p><p>You sequence the <em>Toxin-X</em> target gene again. It is abruptly 5,000 base pairs longer! A massive chunk of repetitive DNA, flanked by inverted repeats, has inserted itself directly into your primer binding site.</p>",
+                theme: 'amber',
+                text: `
+                    <p>A week has passed. You are sleeping on a stiff cot in the MKAK breakroom when Farah violently shakes you awake.</p>
+                    <p>"Doctor! Wake up! Our KLIA PCR tests are failing. We have patients showing up at clinics coughing up blood, but our tests are reading negative. The pathogen is slipping through!"</p>
+                    <p>You sprint to the lab, your heart hammering. The pathogen is adapting to the evolutionary pressure of your drugs. You take fresh sputum samples from the newly infected patients and run them through the sequencer, focusing specifically on your original <em>Toxin-X</em> target gene.</p>
+                    <p>When the data loads, you stare at the screen in disbelief. The <em>Toxin-X</em> gene is still there, but it is abruptly 5,000 base pairs longer. A massive, foreign chunk of highly repetitive DNA, flanked by inverted repeats, has inserted itself directly into the middle of your primer binding site.</p>
+                    <p>Your PCR test was looking for a sequence that has been physically blown apart.</p>
+                    <p class='font-bold text-amber-400 text-lg'>What biological mechanism caused this sudden, massive genetic insertion overnight?</p>`,
                 progress: 50,
                 choices: [
-                    { text: "Investigate ribosomal malfunction", narrative: "The host's translation machinery must be stitching unwanted amino acids.", outcomeTitle: "Biological Error", outcomeText: "Ribosomes translate proteins; they do not alter genomic DNA. You misdiagnose the problem and the pathogen spreads.", type: "gameover", nextStage: "stage4" },
-                    { text: "Investigate a transposable element", narrative: "A sudden insertion isn't random error. A 'jumping gene' has moved.", outcomeTitle: "Evasion Detected", outcomeText: "You recognize the phenomenon discovered by Barbara McClintock. A transposon relocated under drug pressure. You design new flanking primers.", type: "success", nextStage: "stage5" },
-                    { text: "Recalibrate the thermal cycler", narrative: "Assume the insertion is just a hardware glitch adding noise.", outcomeTitle: "Logic Loop", outcomeText: "The hardware is fine. The biology is the problem. You run the same test and get the same negative result. Time lost.", type: "neutral", nextStage: "stage4" }
+                    { text: "Investigate a ribosomal malfunction", narrative: "The host's translation machinery must have gone rogue, blindly stitching thousands of unwanted amino acids into the chain. Focus your diagnostic efforts on the ribosomes.", outcomeTitle: "Biological Error", outcomeText: "Ribosomes translate proteins; they do not alter the sequence of genomic DNA. Furthermore, PCR tests amplify DNA, not proteins. Your lack of genomic understanding blinds you to the real threat. The mutated pathogen spreads unchecked through the population.", type: "gameover", nextStage: "stage4" },
+                    { text: "Investigate a transposable element", narrative: "A sudden 5,000 base pair insertion with inverted repeats isn't a random replication error. Suspect a 'jumping gene' has deliberately moved under stress to shield the pathogen's code.", outcomeTitle: "Evasion Detected", outcomeText: "You immediately recognize the phenomenon discovered by Barbara McClintock. The environmental stress of your drugs caused a transposon to excise itself and relocate, physically breaking your target sequence to evade detection. You quickly design new primers flanking the transposon to restore testing capability.", type: "success", nextStage: "stage5" },
+                    { text: "Recalibrate the thermal cycler hardware", narrative: "Machines break under constant pressure. Assume the sudden insertion is just a hardware glitch adding noise to the sequence, and move the samples to a different machine.", outcomeTitle: "Logic Loop", outcomeText: "The thermal cycler wasn't the issue. You get the exact same false-negative result four hours later. A complete waste of an afternoon during a national crisis. You have to look deeper into the biology.", type: "neutral", nextStage: "stage4" }
                 ]
             },
             stage5: {
                 title: "Phase 5: The Mutation",
-                imageUrl: getTerminalImage("WARNING: FRAMESHIFT MUTATION LOGGED"),
-                text: "<p>The pathogen mutates again. The Shah Alam variant is twice as lethal, causing rapid paralysis.</p><p>You sequence it: the transposon jumped out, but left behind an insertion of exactly <strong>one base pair</strong> (an extra Cytosine) in the middle of the neurotoxin's coding region. This single letter has created a completely deformed, hyper-lethal protein.</p>",
+                theme: 'orange',
+                text: `
+                    <p>By identifying the transposon, you restored the testing grid. But the parasite is relentless. A new cluster of infections has erupted in Shah Alam—dangerously close to the capital.</p>
+                    <p>Worse, the ICU doctors report that the Shah Alam variant is twice as lethal. The neurotoxin isn't just liquefying lung tissue anymore; it's attacking the central nervous system, causing seizures and paralysis within hours.</p>
+                    <p>You sequence the Shah Alam variant. The transposon has spontaneously jumped <em>out</em> of the <em>Toxin-X</em> gene. However, when it excised itself, it didn't leave cleanly. It left behind a microscopic footprint: an insertion of exactly <strong>one base pair</strong> (an extra Cytosine) right in the middle of the neurotoxin's coding region.</p>
+                    <p>Farah looks over your shoulder at the monitor. "Doctor... it's just one extra letter out of tens of thousands. How is that causing the protein to become a completely different, hyper-lethal neurotoxin?"</p>`,
                 progress: 62,
                 choices: [
-                    { text: "Diagnose a silent mutation", narrative: "Assume it merely acts as an accelerator, speeding up ribosomes.", outcomeTitle: "Critical Miscalc", outcomeText: "Silent mutations do not change the protein structure. You deploy old antibodies that bounce harmlessly off the new toxin.", type: "gameover", nextStage: "stage5" },
-                    { text: "Diagnose a frameshift mutation", narrative: "A single nucleotide out of place throws the entire triplet reading frame into chaos.", outcomeTitle: "Mutation Analyzed", outcomeText: "Because the reading frame was thrown out of phase, every downstream codon changed. You rapidly synthesize a V2 monoclonal antibody.", type: "success", nextStage: "stage6" },
-                    { text: "Ignore as software artifact", narrative: "Sequencers generate noise. Tell the team to ignore it.", outcomeTitle: "Tactical Blindness", outcomeText: "Ignoring the data kills. The patients' seizures worsen as your old drug fails. You must review the data.", type: "neutral", nextStage: "stage5" }
+                    { text: "Diagnose a silent mutation", narrative: "It's just one extra base. Explain to Farah that it's a silent mutation that doesn't change the shape, but merely acts as an accelerator, causing the ribosomes to work overtime.", outcomeTitle: "Critical Miscalc", outcomeText: "Silent mutations, by definition, do not change the amino acid sequence or the resulting protein structure. You mischaracterized the variant. You deploy antibodies designed for the old toxin, which bounce harmlessly off the new one. The patients are lost.", type: "gameover", nextStage: "stage5" },
+                    { text: "Diagnose a frameshift mutation", narrative: "Point to the screen. 'The ribosome reads code in triplets,' you explain. 'A single nucleotide out of place throws the entire reading frame into chaos.'", outcomeTitle: "Mutation Analyzed", outcomeText: "You accurately diagnosed the frameshift mutation. Because the reading frame was thrown entirely out of phase by one nucleotide, every single downstream codon changed, translating into a completely novel, twisted protein structure. Armed with this knowledge, you rapidly synthesize a new monoclonal antibody specific to the new shape.", type: "success", nextStage: "stage6" },
+                    { text: "Ignore it as a software artifact", narrative: "Sequencers generate noise all the time. One extra 'C' is likely a digital glitch. Tell the team to ignore it and press forward with the original treatment plan.", outcomeTitle: "Tactical Blindness", outcomeText: "By ignoring the data, you give patients an antibody that binds perfectly to the old protein shape. The new, mutated protein ignores the drug completely. The patients' seizures worsen. You must look at the data again.", type: "neutral", nextStage: "stage5" }
                 ]
             },
             stage6: {
                 title: "Phase 6: The Silent Threat",
-                imageUrl: getTerminalImage("STATUS: EPIGENETIC SILENCING ACTIVE"),
-                text: "<p>A month later, three recovered loggers relapse. You swab them. The pathogen's DNA is fully present, but it isn't transcribing any mRNA. The sequence is identical, but the expression is zero.</p><p>It is 'playing dead' to evade the immune system.</p>",
+                theme: 'purple',
+                text: `
+                    <p>Your frameshift-specific antibody works flawlessly. The Shah Alam cluster is cured, and you finally go home to sleep in your own bed for the first time in three weeks.</p>
+                    <p>A month later, the nightmare returns. Three of the original loggers from the Banjaran camp are rushed back into the emergency room, exhibiting the exact same terrifying symptoms. A relapse.</p>
+                    <p>You swab them immediately. The sequencer confirms the pathogen's DNA is fully present in their lungs. However, when you run an RNA assay, the organism is completely dormant. It isn't transcribing the <em>Toxin-X</em> mRNA at all. It had evaded the host's immune system by "playing dead," only to randomly reactivate when the patient's guard was down. </p>
+                    <p>The underlying DNA sequence itself has not mutated. The code is identical, but the expression is zero. It's a ghost in the machine.</p>
+                    <p class='font-bold text-purple-400 text-lg'>How is the pathogen "turning off" its lethal gene without actually changing its DNA sequence?</p>`,
                 progress: 75,
                 choices: [
-                    { text: "Suspect DNA methylation", narrative: "It's attaching chemical locks to its own promoter regions.", outcomeTitle: "Epigenetics Identified", outcomeText: "Correct. The pathogen is silencing its genes via epigenetics. You use a demethylating agent to force it out of hiding.", type: "success", nextStage: "stage7" },
-                    { text: "Suspect horizontal gene transfer", narrative: "It's absorbing human DNA and deleting its own to hide.", outcomeTitle: "Fundamental Error", outcomeText: "Deleting a gene isn't 'dormancy.' You completely misunderstand gene regulation. The pathogen resurges.", type: "gameover", nextStage: "stage6" },
-                    { text: "Alter ward temperature", narrative: "Climate control is triggering physical hibernation.", outcomeTitle: "Comfort Check", outcomeText: "External heat won't reverse targeted genomic silencing. Time wasted.", type: "neutral", nextStage: "stage6" }
+                    { text: "Suspect DNA methylation (Epigenetics)", narrative: "The pathogen is altering the chemistry of its DNA without altering the code. It's attaching chemical locks to its own promoter regions to sleep.", outcomeTitle: "Epigenetics Identified", outcomeText: "You correctly identified the epigenetic mechanism. The pathogen is silencing its own genes via DNA methylation at CpG islands, physically blocking transcription factors to hide from the immune system. You synthesize a demethylating agent to forcefully wake the pathogen up so the antibodies can destroy it.", type: "success", nextStage: "stage7" },
+                    { text: "Suspect horizontal gene transfer", narrative: "The parasite must be absorbing human DNA to disguise itself and deleting its own toxin genes to hide. Look for signs of the host's genome merging with the pathogen.", outcomeTitle: "Fundamental Error", outcomeText: "Humans do not possess the Toxin-X gene for the parasite to absorb, and deleting a gene isn't 'dormancy.' You completely misunderstand the fundamentals of gene regulation. The pathogen outsmarts your treatments and resurges with a vengeance.", type: "gameover", nextStage: "stage6" },
+                    { text: "Alter the environmental temperature", narrative: "Maybe the hospital's cold climate control is triggering a physical hibernation state. Order the ward's temperature raised to 35 degrees to sweat it out.", outcomeTitle: "Comfort Check", outcomeText: "External temperature changes do not reverse profound, targeted genomic silencing. The patients are miserable and sweating profusely, but the pathogen remains hidden at the molecular level. Time wasted.", type: "neutral", nextStage: "stage6" }
                 ]
             },
             stage7: {
                 title: "Phase 7: The Precision Strike",
-                imageUrl: getTerminalImage("WEAPON: CRISPR-CAS9 SYSTEM ARMED"),
-                text: "<p>The DG wants a permanent cure. You must physically cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells.</p><p>You need unfathomable molecular precision.</p>",
+                theme: 'cyan',
+                text: `
+                    <p>The epigenetic drugs worked, but Datuk Radzi is pacing in your office, furious and exhausted. "We cannot keep playing whack-a-mole with this parasite, Doctor. Demethylating agents, antibodies, RNAi... it's just putting band-aids on a bullet wound. The organism is still physically inside them."</p>
+                    <p>He leans over your desk. "I want a permanent cure. I want you to cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells. Eradicate its weapon."</p>
+                    <p>You swallow hard. In-vivo recombinant DNA editing on a massive scale. It's the molecular equivalent of defusing a bomb inside a crowded room. You load up your genetic modeling software. You need a pair of molecular scissors that are unfathomably precise.</p>
+                    <p class='font-bold text-cyan-400 text-lg'>How do you specifically target and cut ONLY the pathogen's DNA without shredding the human patient's entire genome?</p>`,
                 progress: 87,
                 choices: [
-                    { text: "Inject EcoRI restriction enzyme", narrative: "A massive dose of chemical scissors to chop the DNA.", outcomeTitle: "Mass Fatality", outcomeText: "EcoRI is generic. Its target sequence appears millions of times in human DNA. You shredded the patients' genome.", type: "gameover", nextStage: "stage7" },
-                    { text: "Deploy a CRISPR-Cas9 system", narrative: "Engineer a custom guide RNA for a sniper strike.", outcomeTitle: "Target Locked", outcomeText: "The 20-nucleotide guide RNA ensures only the parasite's lethal gene is cleaved, permanently neutralizing it without harming the human host!", type: "success", nextStage: "stage8" },
-                    { text: "Targeted UV Exposure", narrative: "Blast the lungs with radiation to shatter the genome.", outcomeTitle: "Collateral Damage", outcomeText: "Radiation causes generic thymine dimers, damaging host tissue without erasing the specific target gene.", type: "neutral", nextStage: "stage7" }
+                    { text: "Inject EcoRI restriction enzyme", narrative: "You need powerful chemical scissors. Order a massive dose of the generic EcoRI enzyme to chop the pathogen's DNA to pieces inside the host.", outcomeTitle: "Mass Fatality", outcomeText: "EcoRI is a generic restriction enzyme. The sequence it targets, GAATTC, appears millions of times naturally in the human genome. You just shredded the patient's own DNA alongside the pathogen, causing catastrophic cellular failure.", type: "gameover", nextStage: "stage7" },
+                    { text: "Deploy a custom CRISPR-Cas9 system", narrative: "This requires a molecular sniper rifle, not a shotgun. Turn to the programmable immunity of bacteria. Engineer a custom guide RNA to ensure the Cas9 endonuclease only cleaves the parasite's lethal gene.", outcomeTitle: "Target Locked", outcomeText: "You successfully utilized the unparalleled precision of CRISPR-Cas9. The 20-nucleotide synthetic guide RNA ensures only the parasite's lethal gene is targeted and cleaved, permanently neutralizing its ability to produce the toxin without harming a single human cell!", type: "success", nextStage: "stage8" },
+                    { text: "Expose patients to targeted UV radiation", narrative: "Radiation breaks DNA bonds. Decide to blast the patients' lungs with highly targeted UV light to shatter the parasite's genome without drugs.", outcomeTitle: "Collateral Damage", outcomeText: "UV radiation causes random thymine dimers. It damages the pathogen and the human host indiscriminately, but it does not specifically target or delete the Toxin-X gene. The pathogen's repair mechanisms kick in, and it survives.", type: "neutral", nextStage: "stage7" }
                 ]
             },
             stage8: {
                 title: "Phase 8: The Final Delivery",
-                imageUrl: getTerminalImage("DELIVERY: NANOFORMULATION DEPLOYED"),
-                text: "<p>You have the CRISPR payload, but the patients now have severe secondary bacterial pneumonia. Naked genetic material injected into the blood will be destroyed by human nucleases before reaching the lungs.</p><p>How do you deliver the gene-editing payload and treat the pneumonia simultaneously?</p>",
+                theme: 'teal',
+                text: `
+                    <p>You have the CRISPR-Cas9 payload. It is a masterpiece of genetic engineering. But as you prepare the vials, the Head of Pharmacy calls with devastating news.</p>
+                    <p>"Doctor, the patients' lungs are heavily scarred from the initial toxin exposure. Opportunistic bacteria have moved in. Every single critical patient now has severe, secondary bacterial pneumonia on top of the parasitic infection."</p>
+                    <p>Your heart sinks. If you inject the naked CRISPR genetic material directly into their bloodstream, the body's natural nucleases will destroy it instantly before it ever reaches the lungs. And even if it did, the bacterial pneumonia will kill them before the parasite does.</p>
+                    <p>You need a delivery vehicle that is nothing short of science fiction—something that can shield the fragile CRISPR payload from the blood stream, penetrate the thick lung tissue, and kill the bacterial infection simultaneously.</p>`,
                 progress: 95,
                 choices: [
-                    { text: "Administer naked plasmids via nebulizer", narrative: "Bypass the blood, put it in an oxygen mask.", outcomeTitle: "Delivery Failure", outcomeText: "Naked plasmids are too large and unstable to cross the thick epithelia without a vector. They degrade instantly.", type: "gameover", nextStage: "stage8" },
-                    { text: "Deploy a dual-action nanoformulation", narrative: "SLNs to cloak the CRISPR, and chitosan nanoparticles to kill bacteria.", outcomeTitle: "Delivery Successful", outcomeText: "Brilliant. The SLNs deliver the CRISPR directly into cells, while the chitosan clears the secondary bacterial infection. The outbreak is contained.", type: "success", nextStage: "epilogue" },
-                    { text: "Combine CRISPR and antibiotics in a pill", narrative: "Pack the genetic payload in an oral gelatin capsule.", outcomeTitle: "Digestive Ruin", outcomeText: "Stomach acid denatures the fragile CRISPR plasmids instantly. The parasite remains armed.", type: "neutral", nextStage: "stage8" }
+                    { text: "Administer naked plasmids via a nebulizer mask", narrative: "The lungs are right there. Bypass the bloodstream entirely, putting the raw CRISPR plasmids into an oxygen mask and hoping the patients breathe enough of it deep into their alveoli.", outcomeTitle: "Delivery Failure", outcomeText: "Naked plasmids are far too large, highly negatively charged, and unstable to cross the thick cell membranes of the lung epithelia without a viral or chemical vector. The CRISPR payload degrades instantly in the mucus. The patients succumb to the pneumonia.", type: "gameover", nextStage: "stage8" },
+                    { text: "Deploy a dual-action nanoformulation", narrative: "A problem this complex needs a sophisticated vehicle. Synthesize two distinct nanoparticle systems with separate functions: a solid lipid nanoparticle (SLN) system to carry the pharmaceutical CRISPR payload, and a separate chitosan-based system to provide antimicrobial effects against the pneumonia.", outcomeTitle: "Delivery Successful", outcomeText: "The brilliant application of a dual-action nanoformulation saves the day. The two distinct systems work in perfect tandem—the SLNs seamlessly bypass the body's defenses to deliver the CRISPR payload directly into the parasite's cells, while the separate chitosan nanoparticles clear out the secondary bacterial infection.", type: "success", nextStage: "epilogue" },
+                    { text: "Combine CRISPR and antibiotics in an oral capsule", narrative: "Keep it simple. Pack the fragile genetic payload and heavy oral antibiotics into a gelatin capsule and have the nurses administer it.", outcomeTitle: "Digestive Ruin", outcomeText: "The stomach acid and harsh digestive enzymes completely denature and destroy the CRISPR plasmids before they can even reach the intestines to enter the bloodstream. The antibiotic fights the pneumonia slightly, but the parasite remains armed. The patients are still dying.", type: "neutral", nextStage: "stage8" }
                 ]
             },
             epilogue: {
                 title: "Epilogue: The Chimera Protocol",
-                imageUrl: getTerminalImage("WARNING: SYNTHETIC CHIMERA DETECTED"),
-                text: "<p>The flashing red quarantine zones in Malaysia are turning green. The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence. You saved the country.</p><p>Three months later, military police intercept a black-market bio-containment cylinder at Port Klang. The sequencer data reveals a fully expanded, completely synthetic genetic alphabet of <em>six</em> distinct letters.</p><div class='bg-black border border-red-900 p-4 rounded mt-6 font-mono text-red-500 text-sm text-center leading-relaxed'>INITIAL TEST DEEMED SUCCESSFUL.<br>BANJARAN PROTOTYPE DEFEATED BY TARGET.<br>COMMENCING PHASE TWO. PREPARE FOR THE CHIMERA.</div>",
+                theme: 'dark',
+                text: `
+                    <p>The harsh, clinical fluorescent lights of the MKAK laboratory seem to soften as the first golden rays of morning sun breach the windows. You stand before the main command screen, the hum of the servers a comforting white noise behind you. On the glowing map of Malaysia, the flashing red quarantine zones in Pahang, Selangor, and Johor are slowly turning green.</p>
+                    <p>The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence across thousands of patients. People who were given hours to live are now breathing on their own, their ventilators switched off.</p>
+                    <p>The laboratory doors slide open, and Datuk Radzi steps in. He looks ten years older than he did a month ago, but a massive, profound smile breaks across his face. He walks over and firmly clasps your shoulder. "You did it, Doctor. The Ministry is officially standing down from Code Red. The Banjaran Agent is neutralized. You saved the country."</p>
+                    <hr class='border-slate-700/50 my-8'>
+                    <p class='font-mono text-slate-400 tracking-widest text-center text-xl'>THREE MONTHS LATER</p>
+                    <hr class='border-slate-700/50 my-8'>
+                    <p>The pandemic is a fading memory. You are sitting at your desk late on a Friday evening, typing up the final genomic architecture report for the journal <em>Nature</em>, when the heavy, biometric blast doors of your private laboratory hiss open.</p>
+                    <p>Four armed military police officers step into the room, escorting a terrified-looking customs inspector carrying a sleek, titanium bio-containment cylinder. The inspector keys in a passcode, and the cylinder depressurizes with a hiss of freezing vapor. Inside is a single, glowing amber vial.</p>
+                    <p>"We intercepted a black-market shipment at Port Klang," the inspector says, handing you a secure tablet. "The scanners couldn't identify it. We ran a preliminary genomic sequence."</p>
+                    <p>You swipe through the data, your brow furrowing in confusion. You stare at the nucleotide sequence. It doesn't just read A, T, C, and G. There are <em>six</em> distinct letters on the screen. The organism possesses a fully expanded, completely synthetic genetic alphabet.</p>
+                    <p>"It's not natural," you whisper, a cold knot tightening in your stomach. "Someone engineered this from scratch."</p>
+                    <p>"And Doctor," the inspector adds grimly. "When our algorithms translated the synthetic spacer regions into binary... they found a message encoded directly into the reading frame."</p>
+                    <div class='bg-black/80 border border-red-900 p-6 rounded-xl mt-8 font-mono text-red-500 text-center shadow-[0_0_20px_rgba(220,38,38,0.3)]'>
+                        INITIAL TEST DEEMED SUCCESSFUL.<br>
+                        BANJARAN PROTOTYPE DEFEATED BY TARGET.<br>
+                        COMMENCING PHASE TWO.<br>
+                        PREPARE FOR THE CHIMERA.
+                    </div>`,
                 progress: 100,
                 choices: [
-                    { text: "Generate Operational Intel Report", narrative: "Review your choices and export the post-op document.", type: "success", nextStage: "summary" }
+                    { text: "Generate Operational Intel Report", narrative: "Review your decisions and export the official post-op document.", type: "success", nextStage: "summary" }
                 ]
             }
         };
 
         let currentStageId = "prologue";
+
+        // Handle Theme Changes
+        function applyTheme(themeKey) {
+            const theme = themes[themeKey] || themes.dark;
+            
+            // Update CSS Variable for pulsing effects
+            document.getElementById('app-body').style.setProperty('--theme-pulse', `rgba(${theme.rgb}, 0.6)`);
+            
+            // Update Background Gradient dynamically
+            document.body.style.backgroundImage = `
+                radial-gradient(circle at 15% 30%, rgba(${theme.rgb}, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 85% 70%, rgba(${theme.rgb}, 0.06) 0%, transparent 50%)
+            `;
+
+            // Update Header Icon Color
+            const headerIcon = document.getElementById('header-icon');
+            headerIcon.className = `w-8 h-8 rounded-full flex items-center justify-center pulse-icon transition-colors duration-700 bg-${theme.tailwind}`;
+
+            // Update Progress Bar
+            const pb = document.getElementById('progress-bar');
+            pb.className = `h-full transition-all duration-700 bg-${theme.tailwind}`;
+            pb.style.boxShadow = `0 0 12px rgba(${theme.rgb}, 0.8)`;
+            
+            return theme;
+        }
 
         // Render the main stage UI
         function renderStage(stageId) {
@@ -299,12 +407,30 @@
             }
 
             const stage = gameData[stageId];
+            const theme = applyTheme(stage.theme);
+
+            // Update Status Tag
+            const statusTag = document.getElementById('status-tag');
+            if(stageId === 'prologue') {
+                statusTag.innerText = "SYSTEM STANDBY";
+                statusTag.className = "text-xs font-mono px-3 py-1 rounded-full border border-slate-600 bg-slate-800 text-slate-400 hidden sm:block transition-colors duration-500";
+            } else if (stageId === 'epilogue') {
+                statusTag.innerText = "STATUS: CLASSIFIED";
+                statusTag.className = "text-xs font-mono px-3 py-1 rounded-full border border-red-500/30 bg-red-900/20 text-red-400 hidden sm:block transition-colors duration-500";
+            } else {
+                statusTag.innerText = `PHASE: 0${stageId.replace('stage', '')} ACTIVE`;
+                statusTag.className = `text-xs font-mono px-3 py-1 rounded-full border border-${theme.tailwind}/30 bg-${theme.tailwind}/10 text-${theme.tailwind} hidden sm:block transition-colors duration-500`;
+            }
+
             document.getElementById('progress-bar').style.width = stage.progress + '%';
             
+            // Get matching terminal image based on theme hex
+            const imgUrl = getTerminalImage(stage.imageUrl.match(/_ (.*)%3C/)[1], theme.hex);
+
             const storyContainer = document.getElementById('story-container');
             storyContainer.innerHTML = `
-                <h2 class="text-2xl font-bold text-slate-100 mb-6 font-mono border-b border-slate-700 pb-2">${stage.title}</h2>
-                ${stage.imageUrl ? `<img src="${stage.imageUrl}" class="stage-image fade-in">` : ''}
+                <h2 class="text-3xl font-bold text-slate-100 mb-6 font-mono border-b border-slate-700/50 pb-4">${stage.title}</h2>
+                <img src="${imgUrl}" class="stage-image fade-in">
                 <div class="space-y-4">${stage.text}</div>
             `;
             
@@ -313,11 +439,11 @@
             void storyContainer.offsetWidth; 
             storyContainer.classList.add('fade-in');
 
-            renderChoices(stage.choices, stageId);
+            renderChoices(stage.choices, stageId, theme);
         }
 
         // Render the buttons
-        function renderChoices(choices, stageId) {
+        function renderChoices(choices, stageId, theme) {
             const interactionArea = document.getElementById('interaction-area');
             interactionArea.innerHTML = '';
             
@@ -328,20 +454,20 @@
                 const btn = document.createElement('button');
                 
                 if (stageId === 'prologue' || stageId === 'epilogue') {
-                    btn.className = 'w-full p-4 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold tracking-wide transition-colors shadow-lg uppercase';
+                    btn.className = `w-full p-5 rounded-xl bg-${theme.tailwind} hover:bg-slate-300 text-slate-900 hover:text-slate-900 font-bold tracking-widest transition-colors shadow-[0_0_15px_rgba(${theme.rgb},0.4)] uppercase mt-4`;
                     btn.innerHTML = choice.text;
                 } else {
-                    btn.className = 'choice-btn w-full text-left p-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 border border-slate-600 flex items-center justify-between group';
+                    btn.className = `choice-btn w-full text-left p-5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600 flex items-center justify-between group`;
                     btn.innerHTML = `
                         <div class="flex flex-col w-5/6">
-                            <span class="font-bold text-slate-200 text-lg">${choice.text}</span>
-                            <span class="text-sm text-slate-400 mt-1 italic leading-relaxed">${choice.narrative}</span>
+                            <span class="font-bold text-${theme.tailwind} font-mono uppercase tracking-wide mb-1">> ${choice.text}</span>
+                            <span class="text-[0.95rem] text-slate-300 mt-1 italic leading-relaxed">${choice.narrative}</span>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-sky-400 transition-colors ml-4 text-xl"></i>
+                        <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-${theme.tailwind} transition-colors ml-4 text-2xl"></i>
                     `;
                 }
                 
-                btn.onclick = () => handleChoice(choice, stageId);
+                btn.onclick = () => handleChoice(choice, stageId, theme);
                 choiceList.appendChild(btn);
             });
 
@@ -349,16 +475,11 @@
         }
 
         // Handle button clicks and log data
-        function handleChoice(choice, stageId) {
-            // Log the decision (skip prologue/epilogue tracking for cleanliness)
+        function handleChoice(choice, stageId, theme) {
             if (stageId !== 'prologue' && stageId !== 'epilogue') {
-                let statusLabel = '';
-                if (choice.type === 'success') statusLabel = 'SUCCESS';
-                else if (choice.type === 'gameover') statusLabel = 'CRITICAL ERROR';
-                else statusLabel = 'NEUTRAL DELAY';
-
+                let statusLabel = choice.type === 'success' ? 'SUCCESS' : (choice.type === 'gameover' ? 'CRITICAL ERROR' : 'NEUTRAL DELAY');
                 studentLog.push({
-                    phase: gameData[stageId].title.split(':')[0], // E.g., "Phase 1"
+                    phase: gameData[stageId].title.split(':')[0],
                     decision: choice.text,
                     status: statusLabel
                 });
@@ -371,20 +492,20 @@
                 return;
             }
 
-            // Outcome styling
-            let borderColor = choice.type === 'gameover' ? 'border-red-500/50' : (choice.type === 'success' ? 'border-emerald-500/50' : 'border-amber-500/50');
-            let titleColor = choice.type === 'gameover' ? 'text-red-400' : (choice.type === 'success' ? 'text-emerald-400' : 'text-amber-400');
-            let buttonColor = choice.type === 'gameover' ? 'bg-red-900/50 hover:bg-red-900 border-red-700' : (choice.type === 'success' ? 'bg-emerald-900/50 hover:bg-emerald-900 border-emerald-700' : 'bg-amber-900/50 hover:bg-amber-900 border-amber-700');
+            let borderColor = choice.type === 'gameover' ? 'border-red-500/50' : (choice.type === 'success' ? `border-${theme.tailwind}/50` : 'border-amber-500/50');
+            let titleColor = choice.type === 'gameover' ? 'text-red-400' : (choice.type === 'success' ? `text-${theme.tailwind}` : 'text-amber-400');
+            let bgAccent = choice.type === 'gameover' ? 'bg-red-900/30' : (choice.type === 'success' ? `bg-${theme.tailwind}/20` : 'bg-amber-900/30');
             let buttonText = choice.type === 'gameover' ? 'Re-Evaluate Protocol' : 'Proceed to Next Objective';
 
             const interactionArea = document.getElementById('interaction-area');
             interactionArea.innerHTML = `
-                <div class="fade-in bg-slate-900 border ${borderColor} rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold ${titleColor} mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-microscope"></i> ${choice.outcomeTitle}
+                <div class="fade-in ${bgAccent} border ${borderColor} rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
+                    <h3 class="text-2xl font-bold ${titleColor} mb-4 font-mono uppercase tracking-tight flex items-center gap-3">
+                        <i class="fa-solid ${choice.type === 'gameover' ? 'fa-skull' : (choice.type === 'success' ? 'fa-check-circle' : 'fa-triangle-exclamation')}"></i>
+                        ${choice.outcomeTitle}
                     </h3>
-                    <p class="text-slate-300 leading-relaxed mb-6">${choice.outcomeText}</p>
-                    <button id="next-btn" class="w-full py-3 px-4 rounded-lg border font-semibold tracking-wide transition-colors ${buttonColor} text-white uppercase">
+                    <p class="text-slate-200 leading-relaxed mb-8 text-lg">${choice.outcomeText}</p>
+                    <button id="next-btn" class="w-full py-4 rounded-xl border border-slate-500/50 font-bold tracking-widest transition-all bg-slate-800 hover:bg-slate-700 text-white uppercase shadow-lg">
                         ${buttonText}
                     </button>
                 </div>
@@ -399,30 +520,32 @@
 
         // Render Final Report UI
         function renderSummary() {
+            applyTheme('emerald');
             document.getElementById('status-tag').innerText = "STATUS: DEBRIEFING";
+            document.getElementById('status-tag').className = "text-xs font-mono px-3 py-1 rounded-full border border-emerald-400/30 bg-emerald-900/20 text-emerald-400 hidden sm:block";
             document.getElementById('progress-bar').style.width = '100%';
             
             let tableRows = studentLog.map(log => {
                 let colorClass = log.status === 'SUCCESS' ? 'text-emerald-400' : (log.status === 'CRITICAL ERROR' ? 'text-red-400' : 'text-amber-400');
                 return `
                     <tr class="border-b border-slate-700/50">
-                        <td class="py-3 pr-4 font-bold text-sky-300 whitespace-nowrap">${log.phase}</td>
-                        <td class="py-3 px-4 text-slate-300">${log.decision}</td>
-                        <td class="py-3 pl-4 font-mono font-bold text-right whitespace-nowrap ${colorClass}">${log.status}</td>
+                        <td class="py-4 pr-4 font-bold text-sky-300 whitespace-nowrap">${log.phase}</td>
+                        <td class="py-4 px-4 text-slate-300">${log.decision}</td>
+                        <td class="py-4 pl-4 font-mono font-bold text-right whitespace-nowrap ${colorClass}">${log.status}</td>
                     </tr>
                 `;
             }).join('');
 
             document.getElementById('story-container').innerHTML = `
-                <h2 class="text-2xl font-bold text-slate-100 mb-4 font-mono border-b border-slate-700 pb-2">Operational Debriefing</h2>
-                <p class="text-slate-300 mb-6">Review your molecular epidemiology decision matrix below. You may export this log as a certified MKAK intelligence report.</p>
-                <div class="overflow-x-auto bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                    <table class="w-full text-left text-sm">
-                        <thead class="text-slate-500 font-mono border-b border-slate-700">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4 font-mono border-b border-slate-700/50 pb-4">Operational Debriefing</h2>
+                <p class="text-slate-300 mb-6 text-lg">Review your molecular epidemiology decision matrix below. You may export this log as a certified MKAK intelligence report for your SCL evaluation.</p>
+                <div class="overflow-x-auto bg-slate-900/60 p-6 rounded-xl border border-slate-700 shadow-inner">
+                    <table class="w-full text-left text-sm md:text-base">
+                        <thead class="text-slate-400 font-mono border-b border-slate-600">
                             <tr>
-                                <th class="pb-2 pr-4">PHASE</th>
-                                <th class="pb-2 px-4">INVESTIGATOR DECISION</th>
-                                <th class="pb-2 pl-4 text-right">OUTCOME</th>
+                                <th class="pb-3 pr-4">PHASE</th>
+                                <th class="pb-3 px-4">INVESTIGATOR DECISION</th>
+                                <th class="pb-3 pl-4 text-right">OUTCOME</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -434,10 +557,10 @@
 
             document.getElementById('interaction-area').innerHTML = `
                 <div class="flex flex-col sm:flex-row gap-4 fade-in">
-                    <button onclick="exportToPDF()" class="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold uppercase transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-file-pdf"></i> Export PDF Report
+                    <button onclick="exportToPDF()" class="flex-1 py-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-file-pdf text-xl"></i> Export PDF Report
                     </button>
-                    <button onclick="location.reload()" class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold uppercase transition">
+                    <button onclick="location.reload()" class="flex-1 py-5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold uppercase tracking-widest transition border border-slate-600">
                         Restart Simulation
                     </button>
                 </div>
@@ -446,11 +569,9 @@
 
         // Export to PDF functionality
         function exportToPDF() {
-            // Update the date in the hidden PDF template
             const today = new Date();
             document.getElementById('pdf-date').innerText = "Date Generated: " + today.toLocaleDateString();
 
-            // Populate the hidden PDF table
             const pdfTableBody = document.getElementById('pdf-table-body');
             pdfTableBody.innerHTML = studentLog.map(log => {
                 let statusColor = log.status === 'SUCCESS' ? '#16a34a' : (log.status === 'CRITICAL ERROR' ? '#dc2626' : '#d97706');
@@ -463,13 +584,10 @@
                 `;
             }).join('');
 
-            // Temporarily show the hidden container to render it
             const pdfContainer = document.getElementById('hidden-pdf-container');
             pdfContainer.classList.remove('hidden');
-
             const element = document.getElementById('pdf-report-template');
             
-            // HTML2PDF options
             const opt = {
                 margin:       10,
                 filename:     'MKAK_Operational_Report_Banjaran.pdf',
@@ -478,9 +596,7 @@
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Generate and save
             html2pdf().set(opt).from(element).save().then(() => {
-                // Re-hide the container after saving
                 pdfContainer.classList.add('hidden');
             });
         }
