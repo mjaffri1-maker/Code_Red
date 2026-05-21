@@ -93,14 +93,12 @@
 
             <div class="p-6 md:p-10 flex-grow flex flex-col">
                 <div id="story-container" class="space-y-4 text-slate-300 leading-relaxed fade-in">
-                    <!-- Content injected by JS -->
-                </div>
+                    </div>
 
                 <div class="flex-grow min-h-[2rem]"></div>
 
                 <div id="interaction-area" class="mt-8 border-t border-slate-700 pt-6">
-                    <!-- Choices injected by JS -->
-                </div>
+                    </div>
             </div>
         </div>
     </main>
@@ -113,14 +111,14 @@
         // Helper function to generate robust standalone terminal images 
         function getTerminalImage(text) {
             const encodedText = encodeURIComponent(text);
-            return \`data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Crect width='100%25' height='100%25' fill='%230f172a'/%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23334155' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' fill='%2338bdf8' font-family='monospace' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E%3E_ ${encodedText}%3C/text%3E%3C/svg%3E\`;
+            return `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Crect width='100%25' height='100%25' fill='%230f172a'/%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23334155' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' fill='%2338bdf8' font-family='monospace' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E%3E_ ${encodedText}%3C/text%3E%3C/svg%3E`;
         }
 
         const gameData = {
             prologue: {
                 title: "Prologue: Patient Zero",
                 imageUrl: getTerminalImage("LOCATION: BANJARAN TITIWANGSA - PATIENT ZERO"),
-                text: \`
+                text: `
                     <p>The chainsaw sputtered and died, the sudden silence swallowed instantly by the deafening hum of cicadas. Deep in Sector 4 of the Banjaran Titiwangsa logging concession, Azman wiped a mix of sawdust and sweat from his eyes. Before him lay the shattered trunk of a massive, ancient <em>cengal</em> tree, hollowed out by centuries of rot.</p>
                     <p>As the trunk had split, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was forty-eight hours ago.</p>
                     <p>Now, it was 2:00 AM in the workers' barracks, and Azman felt like he was drowning in his own bed.</p>
@@ -131,7 +129,7 @@
                     <p>As the distant, rhythmic thumping of the medivac helicopter finally echoed over the jungle canopy, Azman's eyes rolled back, and the world went dark. The Banjaran Agent had found its first host, and it was already mutating.</p>
                     <hr class="border-slate-700 my-6">
                     <p class="text-sky-400 font-semibold"><i class="fa-solid fa-microscope mr-2"></i> You are a Senior Genomic Epidemiologist at MKAK in Sungai Buloh. The Ministry of Health has given you 48 hours to decode this pathogen before the outbreak becomes a pandemic.</p>
-                \`,
+                `,
                 progress: 0,
                 choices: [
                     { 
@@ -145,7 +143,7 @@
             stage1: {
                 title: "Stage 1: The Chemical Signature",
                 imageUrl: getTerminalImage("ANALYSIS: MACROMOLECULE EXTRACTION"),
-                text: \`
+                text: `
                     <p>Patient Zero's bronchoalveolar lavage fluid arrives via helicopter at your lab in Sungai Buloh. Under the electron microscope, the Banjaran Agent doesn't look like a standard virus or bacterium; it appears to be a highly complex, airborne, single-celled eukaryotic parasite.</p>
                     <p>Before you can sequence its genome, you must extract its pure genetic material. Your frantic junior biochemist uses a harsh lysis buffer and isolates three distinct cellular fractions, but accidentally drops the labels in her panic.</p>
                     <ul class="list-disc pl-6 space-y-2 text-slate-400 mt-4 mb-4">
@@ -154,7 +152,7 @@
                         <li><strong class="text-slate-200">Fraction Gamma:</strong> A highly hydrophobic, greasy substance composed of long hydrocarbon chains that forms a layer on top of the water.</li>
                     </ul>
                     <p class="font-mono text-sky-400">Which fraction do you load into the sequencer to map the pathogen's blueprint?</p>
-                \`,
+                `,
                 progress: 10,
                 choices: [
                     {
@@ -183,10 +181,10 @@
             stage2: {
                 title: "Stage 2: The Structural Blueprint",
                 imageUrl: getTerminalImage("TARGET: SYNTHESIZING DNA PRIMER"),
-                text: \`
+                text: `
                     <p>To develop a rapid diagnostic PCR test for screening at KLIA, you need to synthesize a primer that binds perfectly to a unique, single-stranded segment of the Banjaran Agent's genome: <code class="bg-slate-700 px-2 py-1 rounded text-sky-300">5'-A-A-T-G-C-C-A-T-3'</code>.</p>
                     <p class="font-mono text-sky-400 mt-6">How do you design the diagnostic complementary primer?</p>
-                \`,
+                `,
                 progress: 25,
                 choices: [
                     {
@@ -215,11 +213,11 @@
             stage3: {
                 title: "Stage 3: The Lethal Mechanism",
                 imageUrl: getTerminalImage("PATHWAY: CENTRAL DOGMA INTERCEPTION"),
-                text: \`
+                text: `
                     <p>You discover <em>how</em> the pathogen kills: its DNA contains a gene, <em>Toxin-X</em>, which produces a neurotoxin protein that liquefies human lung tissue.</p>
                     <p>To save the infected patients in the ICU, you want to develop an RNA interference (RNAi) drug. You must target the exact flow of genetic information inside the human cells hijacked by the pathogen.</p>
                     <p class="font-mono text-sky-400 mt-6">How does the pathogen's genetic information become the lethal neurotoxin?</p>
-                \`,
+                `,
                 progress: 40,
                 choices: [
                     {
@@ -248,11 +246,11 @@
             stage4: {
                 title: "Stage 4: The Evasion",
                 imageUrl: getTerminalImage("ALERT: TRANSPOSABLE ELEMENT DETECTED"),
-                text: \`
+                text: `
                     <p>A week later, disaster strikes. KKM reports your diagnostic PCR test is failing. Patients with obvious, severe symptoms are testing negative.</p>
                     <p>You sequence the <em>Toxin-X</em> target gene again. The gene is still there, but it is abruptly 5,000 base pairs longer! The sequence reveals a massive chunk of repetitive DNA, flanked by inverted repeats, inserted directly into the middle of your primer binding site.</p>
                     <p class="font-mono text-sky-400 mt-6">What caused this sudden genetic alteration?</p>
-                \`,
+                `,
                 progress: 55,
                 choices: [
                     {
@@ -281,11 +279,11 @@
             stage5: {
                 title: "Stage 5: The Mutation",
                 imageUrl: getTerminalImage("WARNING: FRAMESHIFT MUTATION LOGGED"),
-                text: \`
+                text: `
                     <p>The pathogen continues to adapt. In a cluster of patients in Selangor, the transposon spontaneously jumps <em>out</em> of the <em>Toxin-X</em> gene.</p>
                     <p>However, it left behind a tiny footprint: an insertion of exactly <strong>one base pair</strong> (an extra Cytosine) in the middle of the neurotoxin's coding region. Suddenly, this variant produces a completely deformed, hyper-aggressive version of the neurotoxin.</p>
                     <p class="font-mono text-sky-400 mt-6">Why did a single-base insertion cause a catastrophic change to the entire protein?</p>
-                \`,
+                `,
                 progress: 65,
                 choices: [
                     {
@@ -314,10 +312,10 @@
             stage6: {
                 title: "Stage 6: The Silent Threat",
                 imageUrl: getTerminalImage("STATUS: EPIGENETIC SILENCING ACTIVE"),
-                text: \`
+                text: `
                     <p>The new antibody works perfectly. But one month later, three of the original loggers relapse. You swab them. The pathogen's DNA is fully present in their lungs, but the organism is completely dormant. It isn't producing the <em>Toxin-X</em> mRNA at all, evading the immune system, only to randomly reactivate later. The DNA sequence itself has not mutated.</p>
                     <p class="font-mono text-sky-400 mt-6">How is the pathogen "turning off" its lethal gene without changing the DNA sequence?</p>
-                \`,
+                `,
                 progress: 75,
                 choices: [
                     {
@@ -346,10 +344,10 @@
             stage7: {
                 title: "Stage 7: The Precision Strike",
                 imageUrl: getTerminalImage("WEAPON: CRISPR-CAS9 SYSTEM ARMED"),
-                text: \`
+                text: `
                     <p>We can't keep playing whack-a-mole. The Director-General wants a permanent cure: a way to cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells.</p>
                     <p class="font-mono text-sky-400 mt-6">How do you specifically target and cut ONLY the pathogen's DNA without shredding the human patient's DNA?</p>
-                \`,
+                `,
                 progress: 85,
                 choices: [
                     {
@@ -378,10 +376,10 @@
             stage8: {
                 title: "Stage 8: The Final Delivery",
                 imageUrl: getTerminalImage("DELIVERY: NANOFORMULATION DEPLOYED"),
-                text: \`
+                text: `
                     <p>You have the CRISPR payload. However, naked genetic material injected into the bloodstream will be instantly destroyed by human nucleases. Furthermore, the patients' lungs are now suffering from secondary bacterial pneumonia.</p>
                     <p class="font-mono text-sky-400 mt-6">How do you safely deliver the gene-editing payload and treat the pneumonia simultaneously?</p>
-                \`,
+                `,
                 progress: 95,
                 choices: [
                     {
@@ -410,7 +408,7 @@
             epilogue: {
                 title: "Epilogue: The Chimera Protocol",
                 imageUrl: getTerminalImage("WARNING: SYNTHETIC CHIMERA DETECTED"),
-                text: \`
+                text: `
                     <p>The harsh, clinical fluorescent lights of the MKAK laboratory seemed to soften as the first golden rays of morning sun breached the windows. You stand before the main command screen. On the glowing map of Malaysia, the flashing red quarantine zones are slowly turning green. The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence. Patients given hours to live are now breathing on their own.</p>
                     <p>The Director-General steps in, a profound smile breaking across his exhausted face. "You did it," he says. "Code Red is over. You saved millions."</p>
                     <hr class="border-slate-700 my-6">
@@ -426,7 +424,7 @@
                         COMMENCING PHASE TWO.<br>
                         PREPARE FOR THE CHIMERA.
                     </div>
-                \`,
+                `,
                 progress: 100,
                 choices: [
                     { 
@@ -462,11 +460,11 @@
                 stageIndicator.className = 'text-sm font-mono px-3 py-1 rounded-full border border-emerald-400/20 bg-emerald-400/10';
             }
 
-            storyContainer.innerHTML = \`
-                <h2 class="text-2xl font-bold text-slate-100 mb-6 font-mono border-b border-slate-700 pb-2">\${stage.title}</h2>
-                \${stage.imageUrl ? \`<img src="\${stage.imageUrl}" class="stage-image fade-in">\` : ''}
-                <div class="space-y-4 text-[1.05rem]">\${stage.text}</div>
-            \`;
+            storyContainer.innerHTML = `
+                <h2 class="text-2xl font-bold text-slate-100 mb-6 font-mono border-b border-slate-700 pb-2">${stage.title}</h2>
+                ${stage.imageUrl ? `<img src="${stage.imageUrl}" class="stage-image fade-in">` : ''}
+                <div class="space-y-4 text-[1.05rem]">${stage.text}</div>
+            `;
             
             storyContainer.classList.remove('fade-in');
             void storyContainer.offsetWidth; 
@@ -489,13 +487,13 @@
                     btn.className = 'choice-btn w-full text-left p-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 border border-slate-600 flex items-center justify-between group';
                 }
 
-                btn.innerHTML = \`
-                    <div class="flex flex-col \${!choice.outcomeText ? 'items-center w-full' : 'w-5/6'}">
-                        <span class="font-bold \${!choice.outcomeText ? 'text-lg text-white' : 'text-slate-200 text-lg'}">\${choice.text}</span>
-                        \${choice.narrative ? \`<span class="text-sm \${!choice.outcomeText ? 'text-sky-200' : 'text-slate-400'} mt-2 italic leading-relaxed">\${choice.narrative}</span>\` : ''}
+                btn.innerHTML = `
+                    <div class="flex flex-col ${!choice.outcomeText ? 'items-center w-full' : 'w-5/6'}">
+                        <span class="font-bold ${!choice.outcomeText ? 'text-lg text-white' : 'text-slate-200 text-lg'}">${choice.text}</span>
+                        ${choice.narrative ? `<span class="text-sm ${!choice.outcomeText ? 'text-sky-200' : 'text-slate-400'} mt-2 italic leading-relaxed">${choice.narrative}</span>` : ''}
                     </div>
-                    \${choice.outcomeText ? '<i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-sky-400 transition-colors ml-4 text-xl"></i>' : ''}
-                \`;
+                    ${choice.outcomeText ? '<i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-sky-400 transition-colors ml-4 text-xl"></i>' : ''}
+                `;
                 
                 btn.onclick = () => handleChoice(choice);
                 choiceList.appendChild(btn);
@@ -534,17 +532,17 @@
                 buttonColor = 'bg-amber-900/50 hover:bg-amber-900 border-amber-700 text-amber-200';
             }
 
-            interactionArea.innerHTML = \`
-                <div class="fade-in bg-slate-900 border \${borderColor} rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold \${titleColor} mb-3 flex items-center gap-2">
-                        \${icon} \${choice.outcomeTitle}
+            interactionArea.innerHTML = `
+                <div class="fade-in bg-slate-900 border ${borderColor} rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold ${titleColor} mb-3 flex items-center gap-2">
+                        ${icon} ${choice.outcomeTitle}
                     </h3>
-                    <p class="text-slate-300 leading-relaxed mb-6">\${choice.outcomeText}</p>
-                    <button id="next-btn" class="w-full py-3 px-4 rounded-lg border font-semibold tracking-wide transition-colors \${buttonColor}">
-                        \${buttonText}
+                    <p class="text-slate-300 leading-relaxed mb-6">${choice.outcomeText}</p>
+                    <button id="next-btn" class="w-full py-3 px-4 rounded-lg border font-semibold tracking-wide transition-colors ${buttonColor}">
+                        ${buttonText}
                     </button>
                 </div>
-            \`;
+            `;
 
             document.getElementById('next-btn').onclick = () => {
                 currentStageId = choice.nextStage;
