@@ -75,7 +75,7 @@
 <body class="min-h-screen flex flex-col antialiased" id="app-body" style="--theme-pulse: rgba(239, 68, 68, 0.7);">
 
     <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=dark-ambient-115166.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=mystery-10884.mp3" type="audio/mpeg">
     </audio>
 
     <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 shadow-md">
@@ -176,7 +176,7 @@
         // Student tracking log
         let studentLog = [];
 
-        // Dynamic Terminal Image Generator
+        // Dynamic Terminal Image Generator (Fixed String extraction)
         function getTerminalImage(text, colorHex) {
             const encodedText = encodeURIComponent(text);
             return `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='200'%3E%3Crect width='100%25' height='100%25' fill='%230f172a'/%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23334155' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' fill='%23${colorHex}' font-family='monospace' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E%3E_ ${encodedText}%3C/text%3E%3C/svg%3E`;
@@ -199,6 +199,7 @@
             prologue: {
                 title: "Prologue: The Patient Zero Event",
                 theme: 'dark',
+                imageText: "LOCATION: BANJARAN TITIWANGSA - PATIENT ZERO",
                 text: `
                     <p>The chainsaw sputtered and died, the sudden silence swallowed instantly by the deafening hum of cicadas. Deep in Sector 4 of the Banjaran Titiwangsa logging concession, Azman wiped a mix of sawdust and sweat from his eyes. Before him lay the shattered trunk of a massive, ancient <em>cengal</em> tree, hollowed out by centuries of rot.</p>
                     <p>As the trunk had split open, a thick, iridescent blue mist had plumed into the humid air. Azman had coughed, waving the sweet-smelling, powdery spores away from his face. That was exactly forty-eight hours ago.</p>
@@ -215,6 +216,7 @@
             stage1: {
                 title: "Phase 1: The Chemical Signature",
                 theme: 'emerald',
+                imageText: "ANALYSIS: MACROMOLECULE EXTRACTION",
                 text: `
                     <p>The thrum of the Level 4 Bio-Safety Lab's negative pressure system is deafening. You are sealed inside a heavy hazmat suit. Patient Zero's bronchoalveolar lavage fluid arrived twenty minutes ago via military escort. You placed a slide under the electron microscope.</p>
                     <p>You expected a coronavirus or a novel influenza strain. Instead, staring back at you from the monitor is a highly complex, airborne, single-celled eukaryotic parasite. It is massive, armored, and entirely undocumented in any WHO database.</p>
@@ -236,6 +238,7 @@
             stage2: {
                 title: "Phase 2: The Structural Blueprint",
                 theme: 'blue',
+                imageText: "TARGET: SYNTHESIZING DNA PRIMER",
                 text: `
                     <p>The sequencer hums, outputting terabytes of data. You've stripped off your hazmat suit and are sitting in the cold server room. The pathogen's genome is massive, but you've found a vulnerability—a unique, highly conserved single-stranded DNA region.</p>
                     <p>The intercom buzzes. It's the Director-General of Health, Datuk Dr. Radzi. "Doctor, KLIA and Johor Bahru checkpoints are in chaos. We have passengers collapsing in the terminals. I need a rapid diagnostic PCR test shipped out to the borders <em>yesterday</em>. Do you have a primer yet?"</p>
@@ -252,6 +255,7 @@
             stage3: {
                 title: "Phase 3: The Lethal Mechanism",
                 theme: 'red',
+                imageText: "PATHWAY: CENTRAL DOGMA INTERCEPTION",
                 text: `
                     <p>The PCR tests are working. The nation's borders are secure, and you finally have a moment to breathe. You take a sip of cold coffee when the red phone on your desk rings violently. It's the Head of ICU at Hospital Sungai Buloh.</p>
                     <p>"Doctor, the isolation ward is crashing. All of them," the ICU head shouts over blaring alarms. "The pathogen isn't just reproducing; it's actively melting their lung tissue. Mechanical ventilators are useless if there are no lungs left to ventilate. We need a therapeutic drug immediately, or we lose fifty people by midnight."</p>
@@ -268,6 +272,7 @@
             stage4: {
                 title: "Phase 4: The Evasion",
                 theme: 'amber',
+                imageText: "ALERT: TRANSPOSABLE ELEMENT DETECTED",
                 text: `
                     <p>A week has passed. You are sleeping on a stiff cot in the MKAK breakroom when Farah violently shakes you awake.</p>
                     <p>"Doctor! Wake up! Our KLIA PCR tests are failing. We have patients showing up at clinics coughing up blood, but our tests are reading negative. The pathogen is slipping through!"</p>
@@ -285,6 +290,7 @@
             stage5: {
                 title: "Phase 5: The Mutation",
                 theme: 'orange',
+                imageText: "WARNING: FRAMESHIFT MUTATION LOGGED",
                 text: `
                     <p>By identifying the transposon, you restored the testing grid. But the parasite is relentless. A new cluster of infections has erupted in Shah Alam—dangerously close to the capital.</p>
                     <p>Worse, the ICU doctors report that the Shah Alam variant is twice as lethal. The neurotoxin isn't just liquefying lung tissue anymore; it's attacking the central nervous system, causing seizures and paralysis within hours.</p>
@@ -300,6 +306,7 @@
             stage6: {
                 title: "Phase 6: The Silent Threat",
                 theme: 'purple',
+                imageText: "STATUS: EPIGENETIC SILENCING ACTIVE",
                 text: `
                     <p>Your frameshift-specific antibody works flawlessly. The Shah Alam cluster is cured, and you finally go home to sleep in your own bed for the first time in three weeks.</p>
                     <p>A month later, the nightmare returns. Three of the original loggers from the Banjaran camp are rushed back into the emergency room, exhibiting the exact same terrifying symptoms. A relapse.</p>
@@ -316,6 +323,7 @@
             stage7: {
                 title: "Phase 7: The Precision Strike",
                 theme: 'cyan',
+                imageText: "WEAPON: CRISPR-CAS9 SYSTEM ARMED",
                 text: `
                     <p>The epigenetic drugs worked, but Datuk Radzi is pacing in your office, furious and exhausted. "We cannot keep playing whack-a-mole with this parasite, Doctor. Demethylating agents, antibodies, RNAi... it's just putting band-aids on a bullet wound. The organism is still physically inside them."</p>
                     <p>He leans over your desk. "I want a permanent cure. I want you to cut the <em>Toxin-X</em> gene entirely out of the pathogen's genome while it sits inside the human lung cells. Eradicate its weapon."</p>
@@ -331,6 +339,7 @@
             stage8: {
                 title: "Phase 8: The Final Delivery",
                 theme: 'teal',
+                imageText: "DELIVERY: NANOFORMULATION DEPLOYED",
                 text: `
                     <p>You have the CRISPR-Cas9 payload. It is a masterpiece of genetic engineering. But as you prepare the vials, the Head of Pharmacy calls with devastating news.</p>
                     <p>"Doctor, the patients' lungs are heavily scarred from the initial toxin exposure. Opportunistic bacteria have moved in. Every single critical patient now has severe, secondary bacterial pneumonia on top of the parasitic infection."</p>
@@ -346,6 +355,7 @@
             epilogue: {
                 title: "Epilogue: The Chimera Protocol",
                 theme: 'dark',
+                imageText: "WARNING: SYNTHETIC CHIMERA DETECTED",
                 text: `
                     <p>The harsh, clinical fluorescent lights of the MKAK laboratory seem to soften as the first golden rays of morning sun breach the windows. You stand before the main command screen, the hum of the servers a comforting white noise behind you. On the glowing map of Malaysia, the flashing red quarantine zones in Pahang, Selangor, and Johor are slowly turning green.</p>
                     <p>The targeted CRISPR payload is actively snipping the <em>Toxin-X</em> gene out of existence across thousands of patients. People who were given hours to live are now breathing on their own, their ventilators switched off.</p>
@@ -378,20 +388,15 @@
         function applyTheme(themeKey) {
             const theme = themes[themeKey] || themes.dark;
             
-            // Update CSS Variable for pulsing effects
             document.getElementById('app-body').style.setProperty('--theme-pulse', `rgba(${theme.rgb}, 0.6)`);
-            
-            // Update Background Gradient dynamically
             document.body.style.backgroundImage = `
                 radial-gradient(circle at 15% 30%, rgba(${theme.rgb}, 0.08) 0%, transparent 60%),
                 radial-gradient(circle at 85% 70%, rgba(${theme.rgb}, 0.06) 0%, transparent 50%)
             `;
 
-            // Update Header Icon Color
             const headerIcon = document.getElementById('header-icon');
             headerIcon.className = `w-8 h-8 rounded-full flex items-center justify-center pulse-icon transition-colors duration-700 bg-${theme.tailwind}`;
 
-            // Update Progress Bar
             const pb = document.getElementById('progress-bar');
             pb.className = `h-full transition-all duration-700 bg-${theme.tailwind}`;
             pb.style.boxShadow = `0 0 12px rgba(${theme.rgb}, 0.8)`;
@@ -409,7 +414,6 @@
             const stage = gameData[stageId];
             const theme = applyTheme(stage.theme);
 
-            // Update Status Tag
             const statusTag = document.getElementById('status-tag');
             if(stageId === 'prologue') {
                 statusTag.innerText = "SYSTEM STANDBY";
@@ -424,8 +428,8 @@
 
             document.getElementById('progress-bar').style.width = stage.progress + '%';
             
-            // Get matching terminal image based on theme hex
-            const imgUrl = getTerminalImage(stage.imageUrl.match(/_ (.*)%3C/)[1], theme.hex);
+            // Generate the image safely using the predefined text string
+            const imgUrl = getTerminalImage(stage.imageText, theme.hex);
 
             const storyContainer = document.getElementById('story-container');
             storyContainer.innerHTML = `
@@ -434,7 +438,6 @@
                 <div class="space-y-4">${stage.text}</div>
             `;
             
-            // Re-trigger animation
             storyContainer.classList.remove('fade-in');
             void storyContainer.offsetWidth; 
             storyContainer.classList.add('fade-in');
