@@ -148,10 +148,12 @@
                     <p id="pdf-date" style="margin: 0; font-size: 12px; color: #475569;"></p>
                 </div>
             </div>
+            
             <p style="font-size: 14px; margin-bottom: 20px;">
                 <strong>Subject:</strong> Post-Operation Decision Matrix & Molecular Protocol Audit<br>
                 <strong>Lead Investigator:</strong> Senior Genomic Epidemiologist
             </p>
+
             <table class="print-table">
                 <thead>
                     <tr>
@@ -160,7 +162,8 @@
                         <th>Outcome Status</th>
                     </tr>
                 </thead>
-                <tbody id="pdf-table-body"></tbody>
+                <tbody id="pdf-table-body">
+                    </tbody>
             </table>
         </div>
     </div>
@@ -178,9 +181,10 @@
                 icon.className = 'fa-solid fa-volume-xmark text-lg';
                 isAudioPlaying = false;
             } else {
-                bgMusic.play();
-                icon.className = 'fa-solid fa-volume-high text-lg text-emerald-400';
-                isAudioPlaying = true;
+                bgMusic.play().then(() => {
+                    icon.className = 'fa-solid fa-volume-high text-lg text-emerald-400';
+                    isAudioPlaying = true;
+                }).catch(err => console.log("Audio playback requires user interaction."));
             }
         }
 
@@ -378,8 +382,8 @@
                         BANJARAN PROTOTYPE DEFEATED BY TARGET.<br>
                         COMMENCING PHASE TWO.<br>
                         PREPARE FOR THE CHIMERA.
-                    <p>Deep inside you gasped - The story's not over yet, this is just the beginning.</p>
-                    </div>`,
+                    </div>
+                    <p class='mt-8 text-slate-400 italic text-lg leading-relaxed shadow-sm'>Deep inside, as you stare at the impossible, alien genetic code glowing on the tablet, you finally realize this is not the end... it is the beginning.</p>`,
                 progress: 100,
                 choices: [
                     { text: "Generate Operational Intel Report", narrative: "Review my decisions and export the official post-op document.", type: "success", nextStage: "summary" }
@@ -447,7 +451,7 @@
             renderChoices(stage.choices, stageId, theme);
         }
 
-        // Render the buttons
+        // Render the buttons with Randomization Logic (Fisher-Yates Shuffle)
         function renderChoices(choices, stageId, theme) {
             const interactionArea = document.getElementById('interaction-area');
             interactionArea.innerHTML = '';
@@ -455,7 +459,16 @@
             const choiceList = document.createElement('div');
             choiceList.className = 'flex flex-col gap-4 fade-in';
 
-            choices.forEach(choice => {
+            // Shuffle the choices array for active game stages to prevent pattern recognition
+            let displayChoices = [...choices]; 
+            if (stageId !== 'prologue' && stageId !== 'epilogue') {
+                for (let i = displayChoices.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [displayChoices[i], displayChoices[j]] = [displayChoices[j], displayChoices[i]];
+                }
+            }
+
+            displayChoices.forEach(choice => {
                 const btn = document.createElement('button');
                 
                 if (stageId === 'prologue' || stageId === 'epilogue') {
@@ -481,6 +494,11 @@
 
         // Handle button clicks and log data
         function handleChoice(choice, stageId, theme) {
+            // Autoplay music on the very first interaction (browser requirement)
+            if (stageId === 'prologue' && !isAudioPlaying) {
+                toggleAudio();
+            }
+
             if (stageId !== 'prologue' && stageId !== 'epilogue') {
                 let statusLabel = choice.type === 'success' ? 'SUCCESS' : (choice.type === 'gameover' ? 'CRITICAL ERROR' : 'NEUTRAL DELAY');
                 studentLog.push({
